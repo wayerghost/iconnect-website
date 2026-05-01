@@ -4,9 +4,9 @@
   "description": "i-Connect Student Society Website",
   "main": "script.js",
   "scripts": {
-    "build": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
-    "watch": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
-    "dev": "npx live-server"
+    "build": "tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
+    "watch": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "dev": "live-server"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.1"
