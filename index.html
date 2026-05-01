@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i-Connect Student Society | Accomplishment Reports</title>
+    <meta name="description" content="View the 1st and 2nd semester accomplishment reports of the i-Connect Student Society.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assets/iconnect_logo.png" alt="i-Connect Logo">
+                <span>i-Connect</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#reports" class="btn-primary">View Reports</a>
+            </nav>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="animate-fade-in-up">WHERE TECH SPARKS INTO <span class="highlight">BREAKTHROUGHS</span></h1>
+                <p class="subtitle animate-fade-in-up delay-1">Welcome to the official portal for the i-Connect Student Society. Discover our milestones, events, and community impact.</p>
+                <div class="social-handles animate-fade-in-up delay-1">
+                    <div class="social-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"/></svg>
+                        <span>/ursb.ccsiconnect</span>
+                    </div>
+                    <div class="social-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
+                        <span>official.ic2526@gmail.com</span>
+                    </div>
+                </div>
+                <div class="hero-actions animate-fade-in-up delay-2">
+                    <a href="#reports" class="btn-glow">Explore Our Achievements</a>
+                </div>
+            </div>
+            <div class="hero-image animate-fade-in delay-2">
+               <div class="glass-orb orb-1"></div>
+               <div class="glass-orb orb-2"></div>
+            </div>
+        </section>
+
+        <section id="reports" class="reports-section">
+            <div class="section-header">
+                <h2>Accomplishment Reports</h2>
+                <p>A comprehensive overview of our initiatives and success stories.</p>
+            </div>
+
+            <div class="tabs-container">
+                <div class="tabs">
+                    <button class="tab-btn active" data-target="sem1">1st Semester</button>
+                    <button class="tab-btn" data-target="sem2">2nd Semester</button>
+                </div>
+
+                <div class="tab-content active" id="sem1">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content glass-card">
+                                <h3>Tech Symposium 2025</h3>
+                                <span class="date">September 15</span>
+                                <div class="project-image" style="background: linear-gradient(135deg, rgba(78, 84, 200, 0.4), rgba(0, 242, 254, 0.2)); display: flex; align-items: center; justify-content: center; color: var(--accent); font-weight: 600;">Project Image</div>
+                                <p>Hosted a 2-day symposium featuring industry leaders from top tech firms, attended by over 500 students.</p>
+                                <div class="tags">
+                                    <span class="tag">Event</span>
+                                    <span class="tag">Networking</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content glass-card">
+                                <h3>Coding Bootcamp: Web Dev</h3>
+                                <span class="date">October 10 - November 5</span>
+                                <div class="project-image" style="background: linear-gradient(135deg, rgba(78, 84, 200, 0.4), rgba(0, 242, 254, 0.2)); display: flex; align-items: center; justify-content: center; color: var(--accent); font-weight: 600;">Project Image</div>
+                                <p>Conducted a 4-week intensive bootcamp teaching HTML, CSS, and JS to beginners. 120 students successfully built their first portfolios.</p>
+                                <div class="tags">
+                                    <span class="tag">Workshop</span>
+                                    <span class="tag">Education</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content glass-card">
+                                <h3>Hackathon: Innovate 1.0</h3>
+                                <span class="date">December 1-3</span>
+                                <div class="project-image" style="background: linear-gradient(135deg, rgba(78, 84, 200, 0.4), rgba(0, 242, 254, 0.2)); display: flex; align-items: center; justify-content: center; color: var(--accent); font-weight: 600;">Project Image</div>
+                                <p>Organized a 48-hour hackathon focusing on sustainability solutions. Awarded $2000 in prizes to the top 3 teams.</p>
+                                <div class="tags">
+                                    <span class="tag">Competition</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="sem2">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content glass-card">
+                                <h3>AI & Machine Learning Workshop</h3>
+                                <span class="date">February 20</span>
+                                <div class="project-image" style="background: linear-gradient(135deg, rgba(78, 84, 200, 0.4), rgba(0, 242, 254, 0.2)); display: flex; align-items: center; justify-content: center; color: var(--accent); font-weight: 600;">Project Image</div>
+                                <p>Introductory sessions on ML models and their applications, partnered with local tech startups.</p>
+                                <div class="tags">
+                                    <span class="tag">Workshop</span>
+                                    <span class="tag">AI</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content glass-card">
+                                <h3>Open Source Contribution Month</h3>
+                                <span class="date">March 1-31</span>
+                                <div class="project-image" style="background: linear-gradient(135deg, rgba(78, 84, 200, 0.4), rgba(0, 242, 254, 0.2)); display: flex; align-items: center; justify-content: center; color: var(--accent); font-weight: 600;">Project Image</div>
+                                <p>Guided 80 students to make their first pull requests to popular open source repositories.</p>
+                                <div class="tags">
+                                    <span class="tag">Community</span>
+                                    <span class="tag">Open Source</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content glass-card">
+                                <h3>End of Year Gala & Awards</h3>
+                                <span class="date">May 10</span>
+                                <div class="project-image" style="background: linear-gradient(135deg, rgba(78, 84, 200, 0.4), rgba(0, 242, 254, 0.2)); display: flex; align-items: center; justify-content: center; color: var(--accent); font-weight: 600;">Project Image</div>
+                                <p>Celebrated the society's achievements, awarded top members, and elected the new executive board for the upcoming year.</p>
+                                <div class="tags">
+                                    <span class="tag">Event</span>
+                                    <span class="tag">Celebration</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/iconnect_logo.png" alt="i-Connect Logo">
+                <span>i-Connect Student Society</span>
+            </div>
+            <p>&copy; 2026 i-Connect Student Society. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
