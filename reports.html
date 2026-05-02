@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - i-Connect Student Society</title>
+    <meta name="description" content="View the Accomplishment and Financial Reports of the i-Connect Student Society.">
+    <link href="./dist/output.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="bg-dark text-[#f8f9fa] font-inter selection:bg-accent/30 overflow-x-hidden">
+    <!-- Background Grid and Overlay -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="background-overlay absolute inset-0 opacity-60"></div>
+        <div
+            class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-90 contrast-150">
+        </div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(27,117,188,0.2),transparent_70%)]">
+        </div>
+        <div class="mouse-spotlight"></div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="navbar fixed top-0 w-full z-50 py-5 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <!-- Brand -->
+            <div class="flex items-center gap-4 group cursor-pointer magnetic-item"
+                onclick="window.location.href='index.html'">
+                <div class="relative">
+                    <div
+                        class="absolute inset-0 bg-accent/20 blur-xl rounded-full group-hover:bg-accent/40 transition-all duration-700 animate-pulse-slow">
+                    </div>
+                    <img src="assets/iconnect_logo.png" alt="i-Connect Logo"
+                        class="h-10 w-auto relative z-10 transition-transform group-hover:scale-110 drop-shadow-[0_0_12px_rgba(0,242,254,0.6)]">
+                </div>
+                <span
+                    class="font-outfit font-black text-xl tracking-tighter uppercase hidden md:block group-hover:text-glow-accent transition-all duration-500">i-Connect
+                    Student Society</span>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center gap-8 font-medium">
+                <a href="index.html" class="hover:text-accent transition-colors py-2 relative group">Home</a>
+                <a href="events.html" class="hover:text-accent transition-colors py-2 relative group">Events</a>
+                <a href="team.html" class="hover:text-accent transition-colors py-2 relative group">The Team</a>
+                <a href="reports.html"
+                    class="ml-4 bg-gradient-to-r from-primary to-accent hover:shadow-glow-accent px-6 py-2.5 rounded-full font-bold text-sm transition-all hover:-translate-y-1 active:scale-95 shadow-lg relative z-10 before:absolute before:inset-0 before:bg-white/20 before:rounded-full before:-z-10">
+                    Reports
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu"
+                class="lg:hidden flex flex-col gap-1.5 cursor-pointer z-[60] p-2 hover:bg-white/5 rounded-lg transition-all">
+                <span class="bar w-7 h-0.5 bg-white rounded-full transition-all"></span>
+                <span class="bar w-5 h-0.5 bg-white rounded-full transition-all self-end"></span>
+                <span class="bar w-7 h-0.5 bg-white rounded-full transition-all"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-nav"
+            class="fixed inset-0 bg-dark/98 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 text-2xl font-bold translate-x-full transition-transform duration-700 lg:hidden z-50">
+            <a href="index.html" class="mobile-link text-white/50 hover:text-white transition-colors">Home</a>
+            <a href="events.html" class="mobile-link text-white/50 hover:text-white transition-colors">Events</a>
+            <a href="team.html" class="mobile-link text-white/50 hover:text-white transition-colors">Team</a>
+            <a href="reports.html" class="mobile-link text-white hover:text-accent transition-colors">Reports</a>
+        </div>
+    </header>
+
+    <main class="pt-40 pb-20 min-h-screen flex flex-col">
+        <!-- Header Section -->
+        <section class="max-w-7xl mx-auto px-6 mb-16 text-center">
+            <div class="text-center mb-20">
+                <h1 class="font-outfit text-5xl md:text-7xl font-black mb-6 animate-fade-in-up">Organization <span
+                        class="bg-gradient-to-r from-primary-light via-accent to-primary-light bg-clip-text text-transparent">Reports</span>
+                </h1>
+                <div
+                    class="w-24 h-1.5 bg-accent mx-auto rounded-full shadow-glow-accent mb-6 animate-fade-in-up delay-1">
+                </div>
+                <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto animate-fade-in-up delay-2">Here are our
+                    achievements, presented through clear and honest reports.</p>
+            </div>
+        </section>
+
+
+
+        <!-- Main Content -->
+        <section class="max-w-7xl mx-auto px-6 flex-grow flex flex-col animate-fade-in-up delay-2">
+            <!-- Main Tabs -->
+            <div
+                class="flex flex-wrap justify-center gap-4 mb-16 p-1.5 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-xl w-fit mx-auto">
+                <button
+                    class="tab-btn active px-8 py-3 rounded-xl font-bold text-sm transition-all hover:text-white bg-white/10 text-white"
+                    data-target="tab-accomplishment">Accomplishment Report</button>
+                <button
+                    class="tab-btn px-8 py-3 rounded-xl font-bold text-sm transition-all text-gray-500 hover:text-white hover:bg-white/5"
+                    data-target="tab-financial">Financial Report</button>
+            </div>
+
+            <!-- ============================================== -->
+            <!-- ACCOMPLISHMENT REPORT SECTION -->
+            <!-- ============================================== -->
+            <div id="tab-accomplishment" class="tab-content active flex flex-col flex-grow">
+
+                <!-- Inner Semester Tabs -->
+                <div class="flex justify-center gap-8 border-b border-white/10 pb-4 mb-12">
+                    <button
+                        class="inner-tab-btn active text-accent font-bold text-lg px-2 py-1 border-b-2 border-accent transition-all"
+                        data-target="acc-sem1">1st Semester</button>
+                    <button
+                        class="inner-tab-btn text-gray-500 hover:text-gray-300 font-bold text-lg px-2 py-1 border-b-2 border-transparent transition-all"
+                        data-target="acc-sem2">2nd Semester</button>
+                </div>
+
+                <!-- Semester 1 Accomplishments -->
+                <div id="acc-sem1" class="inner-tab-content active">
+                    <div id="acc-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Dynamic cards will be injected here -->
+                        <div id="acc-loader" class="col-span-full py-20 text-center text-gray-500 font-bold">
+                            <svg class="animate-spin h-8 w-8 mx-auto mb-4 text-accent"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                            Loading Accomplishments...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semester 2 Accomplishments -->
+                <div id="acc-sem2" class="inner-tab-content hidden">
+                    <div id="acc-grid-sem2" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="col-span-full py-20 text-center text-gray-500 font-bold italic">
+                            Awaiting second semester data...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================== -->
+            <!-- FINANCIAL REPORT SECTION -->
+            <!-- ============================================== -->
+            <div id="tab-financial" class="tab-content hidden flex flex-col flex-grow">
+
+                <!-- Inner Semester Tabs -->
+                <div class="flex justify-center gap-8 border-b border-white/10 pb-4 mb-12">
+                    <button
+                        class="inner-tab-btn active text-primary-light font-bold text-lg px-2 py-1 border-b-2 border-primary-light transition-all"
+                        data-target="fin-sem1">1st Semester</button>
+                    <button
+                        class="inner-tab-btn text-gray-500 hover:text-gray-300 font-bold text-lg px-2 py-1 border-b-2 border-transparent transition-all"
+                        data-target="fin-sem2">2nd Semester</button>
+                </div>
+
+                <!-- Semester 1 Financial -->
+                <div id="fin-sem1" class="inner-tab-content active">
+                    <div id="fin-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div id="fin-loader" class="col-span-full py-20 text-center text-gray-500 font-bold">
+                            <svg class="animate-spin h-8 w-8 mx-auto mb-4 text-primary-light"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                            Loading Financial Reports...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semester 2 Financial -->
+                <div id="fin-sem2" class="inner-tab-content hidden">
+                    <div id="fin-grid-sem2" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="col-span-full py-20 text-center text-gray-500 font-bold italic">
+                            Awaiting second semester data...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Event Details Modal -->
+    <div id="event-modal" class="fixed inset-0 z-[100] hidden items-center justify-center px-4 sm:px-6">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-dark/80 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop">
+        </div>
+
+        <!-- Modal Content -->
+        <div class="relative bg-[#0c2d40] border border-white/10 rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col max-h-[90vh]"
+            id="modal-content-box">
+
+            <!-- Close Button -->
+            <button id="modal-close"
+                class="absolute top-4 right-4 z-10 w-10 h-10 bg-black/40 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors backdrop-blur-md">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+
+            <!-- Scrollable Content Area -->
+            <div class="overflow-y-auto w-full">
+                <!-- Cover Image -->
+                <div class="w-full h-64 md:h-80 relative">
+                    <img id="modal-img" src="" alt="Event" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0c2d40] via-[#0c2d40]/50 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <span id="modal-badge"
+                            class="px-4 py-1.5 rounded-full bg-accent text-dark text-[10px] font-black uppercase tracking-widest mb-3 inline-block shadow-glow-accent"></span>
+                        <h2 id="modal-title"
+                            class="font-outfit text-3xl md:text-5xl font-black text-white leading-tight"></h2>
+                        <p id="modal-date" class="text-accent font-bold tracking-widest uppercase mt-2 text-sm"></p>
+                    </div>
+                </div>
+
+                <!-- Details Body -->
+                <div class="p-6 md:p-10 space-y-8 bg-[#0c2d40]">
+                    <!-- Description -->
+                    <div>
+                        <h3 class="text-white font-bold text-lg mb-3 border-b border-white/10 pb-2">About The Event</h3>
+                        <p id="modal-desc" class="text-gray-300 leading-relaxed text-lg"></p>
+                    </div>
+
+                    <!-- Additional Content (from hidden div) -->
+                    <div id="modal-extended-content" class="text-gray-400 space-y-4 text-base leading-relaxed">
+                        <!-- Extra details injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark py-20 border-t border-white/5 mt-auto">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="pt-8 flex flex-col md:flex-row justify-center items-center">
+                <p class="text-gray-600 text-[10px] uppercase tracking-[0.2em] font-bold text-center">
+                    &copy; 2026 i-Connect Student Society. All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Script for Tabs & Supabase -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Main Tabs Logic
+            const mainTabBtns = document.querySelectorAll('.tab-btn');
+            const mainTabContents = document.querySelectorAll('.tab-content');
+
+            mainTabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    mainTabBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-white/10', 'text-white');
+                        b.classList.add('text-gray-500');
+                    });
+                    mainTabContents.forEach(c => {
+                        c.classList.remove('active');
+                        c.classList.add('hidden');
+                    });
+
+                    btn.classList.add('active', 'bg-white/10', 'text-white');
+                    btn.classList.remove('text-gray-500');
+                    document.getElementById(btn.getAttribute('data-target')).classList.remove('hidden');
+                    document.getElementById(btn.getAttribute('data-target')).classList.add('active');
+                });
+            });
+
+            // Inner Tabs Logic
+            const innerTabBtns = document.querySelectorAll('.inner-tab-btn');
+            innerTabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const parentSection = btn.closest('.tab-content');
+                    const relatedBtns = parentSection.querySelectorAll('.inner-tab-btn');
+                    const relatedContents = parentSection.querySelectorAll('.inner-tab-content');
+
+                    relatedBtns.forEach(b => {
+                        b.classList.remove('active');
+                        const borderColor = parentSection.id === 'tab-accomplishment' ? 'border-accent' : 'border-primary-light';
+                        const textColor = parentSection.id === 'tab-accomplishment' ? 'text-accent' : 'text-primary-light';
+                        b.classList.remove(borderColor, textColor);
+                        b.classList.add('border-transparent', 'text-gray-500');
+                    });
+
+                    relatedContents.forEach(c => {
+                        c.classList.remove('active');
+                        c.classList.add('hidden');
+                    });
+
+                    const activeBorderColor = parentSection.id === 'tab-accomplishment' ? 'border-accent' : 'border-primary-light';
+                    const activeTextColor = parentSection.id === 'tab-accomplishment' ? 'text-accent' : 'text-primary-light';
+
+                    btn.classList.add('active', activeBorderColor, activeTextColor);
+                    btn.classList.remove('border-transparent', 'text-gray-500');
+
+                    document.getElementById(btn.getAttribute('data-target')).classList.remove('hidden');
+                    document.getElementById(btn.getAttribute('data-target')).classList.add('active');
+                });
+            });
+
+            // ==========================================
+            // FETCH PUBLISHED REPORTS
+            // ==========================================
+            const SUPABASE_URL = 'https://zfmmzjhffkctltghntkj.supabase.co';
+            const SUPABASE_ANON_KEY = 'sb_publishable_FVbRM6AmfGDi-MbOAxYx-A_zu1dgewh';
+
+            if (window.supabase) {
+                const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                const accGrid = document.getElementById('acc-grid');
+                const finGrid = document.getElementById('fin-grid');
+                const accLoader = document.getElementById('acc-loader');
+                const finLoader = document.getElementById('fin-loader');
+
+                try {
+                    const { data: reports, error } = await supabase
+                        .from('reports')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+
+                    if (error) throw error;
+
+                    // Remove loaders
+                    if (accLoader) accLoader.remove();
+                    if (finLoader) finLoader.remove();
+
+                    if (reports && reports.length > 0) {
+                        let hasAcc = false;
+                        let hasFin = false;
+
+                        // Clear loaders/placeholders once before the loop
+                        [accGrid, finGrid, document.getElementById('acc-grid-sem2'), document.getElementById('fin-grid-sem2')].forEach(grid => {
+                            if (grid) grid.innerHTML = '';
+                        });
+
+                        reports.forEach(report => {
+                            let badgeClass = 'bg-white text-dark shadow-none';
+                            let dateClass = 'text-white';
+                            let accentClass = 'accent';
+
+                            if (report.category && report.category.includes('Major')) {
+                                badgeClass = 'bg-purple-600 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)]';
+                                dateClass = 'text-purple-400';
+                                accentClass = 'purple-500';
+                            } else if (report.category && report.category.includes('Minor')) {
+                                badgeClass = 'bg-blue-500 text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]';
+                                dateClass = 'text-blue-400';
+                                accentClass = 'blue-500';
+                            } else if (report.category && report.category.includes('Project')) {
+                                badgeClass = 'bg-cyan-400 text-dark shadow-[0_0_15px_rgba(34,211,238,0.4)]';
+                                dateClass = 'text-cyan-400';
+                                accentClass = 'cyan-400';
+                            }
+
+                            const displayDate = report.date ? new Date(report.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'N/A';
+
+                            let btnClass = 'bg-accent text-dark shadow-glow-accent';
+                            if (accentClass === 'purple-500') btnClass = 'bg-purple-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.5)]';
+                            else if (accentClass === 'blue-500') btnClass = 'bg-blue-500 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]';
+                            else if (accentClass === 'cyan-400') btnClass = 'bg-cyan-400 text-dark shadow-[0_0_15px_rgba(34,211,238,0.5)]';
+
+                            let glowColor = 'rgba(90, 190, 176, 0.3)';
+                            if (accentClass === 'purple-500') glowColor = 'rgba(168, 85, 247, 0.3)';
+                            else if (accentClass === 'blue-500') glowColor = 'rgba(59, 130, 246, 0.3)';
+                            else if (accentClass === 'cyan-400') glowColor = 'rgba(34, 211, 238, 0.3)';
+
+                            const cardHtml = `
+                                <div class="report-card cursor-pointer bg-surface-dark/40 backdrop-blur-3xl border border-white/5 rounded-3xl overflow-hidden group hover:border-${accentClass}/40 hover:bg-surface-dark/60 transition-all duration-500 hover-lift shadow-xl flex flex-col relative" style="--glow-color: ${glowColor}">
+                                    <!-- Dynamic Glow Background -->
+                                    <div class="absolute -inset-2 bg-gradient-to-br from-${accentClass}/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl z-0"></div>
+                                    
+                                    <div class="absolute inset-0 bg-dark/40 backdrop-blur-[2px] z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                                        <span class="${btnClass} px-6 py-3 rounded-full font-black text-sm flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                            View Full Report
+                                        </span>
+                                    </div>
+
+                                    <div class="relative aspect-[4/3] overflow-hidden border-b border-white/5">
+                                        <img src="${report.image_url}" alt="Event Image" class="card-img w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                        <div class="absolute top-4 left-4 z-10">
+                                            <span class="card-badge px-4 py-1.5 rounded-full ${badgeClass} text-[10px] font-black uppercase tracking-widest shadow-lg">
+                                                ${report.category || 'N/A'}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-6 md:p-8 space-y-5 flex-grow flex flex-col">
+                                        <div>
+                                            <p class="card-date text-[11px] ${dateClass} font-bold tracking-widest uppercase mb-2">${displayDate}</p>
+                                            <h3 class="card-title font-outfit text-2xl font-black text-white group-hover:text-${accentClass} transition-colors leading-tight">
+                                                ${report.title || 'Untitled'}
+                                            </h3>
+                                        </div>
+
+                                        <p class="card-desc text-gray-400 text-sm leading-relaxed flex-grow line-clamp-2">
+                                            ${report.description || 'No description provided.'}
+                                        </p>
+
+                                        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
+                                            <div class="bg-white/5 rounded-2xl p-4 group-hover:bg-${accentClass}/10 transition-colors">
+                                                <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Attendees</div>
+                                                <div class="font-black text-white text-xl">${report.attendees || 'N/A'}</div>
+                                            </div>
+                                            <div class="bg-white/5 rounded-2xl p-4 group-hover:bg-${accentClass}/10 transition-colors">
+                                                <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Evaluation</div>
+                                                <div class="font-black text-white text-xl">${report.evaluation || 'N/A'}</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-dark/50 border border-white/5 rounded-2xl p-4 mt-2 group-hover:border-white/10 transition-colors">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <svg class="w-4 h-4 text-${accentClass}" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.21 3.79 6.83-.24 1.44-.94 2.89-2.14 4.04a1 1 0 00.56 1.7c2.6.21 5.06-1.12 6.55-2.61 1.45.39 3.01.6 4.64.6 5.52 0 10-3.92 10-8.75S17.52 2 12 2zm0 17.5c-1.57 0-3.1-.21-4.52-.61a1 1 0 00-.83.15c-1.28 1.05-3.08 1.95-4.99 1.96 1.03-1.2 1.63-2.67 1.86-4.08a1 1 0 00-.33-.93C1.29 14.54 0 12.35 0 9.75 0 4.37 5.37 0 12 0s12 4.37 12 9.75-5.37 9.75-12 9.75z"/></svg>
+                                                <div class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Top Feedback</div>
+                                            </div>
+                                            <p class="text-xs text-gray-300 italic leading-relaxed">"${report.feedback || 'No feedback'}"</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden modal-extended-data">
+                                        ${report.extended_details || '<p>No extended details available.</p>'}
+                                    </div>
+                                </div>
+                            `;
+
+                            if (report.report_type === 'Financial') {
+                                const targetId = report.semester === '2nd Semester' ? 'fin-grid-sem2' : 'fin-grid';
+                                const targetFinGrid = document.getElementById(targetId);
+                                if (targetFinGrid) {
+                                    targetFinGrid.insertAdjacentHTML('afterbegin', cardHtml);
+                                    hasFin = true;
+                                }
+                            } else {
+                                const targetId = report.semester === '2nd Semester' ? 'acc-grid-sem2' : 'acc-grid';
+                                const targetAccGrid = document.getElementById(targetId);
+                                if (targetAccGrid) {
+                                    targetAccGrid.insertAdjacentHTML('afterbegin', cardHtml);
+                                    hasAcc = true;
+                                }
+                            }
+                        });
+
+                        if (!hasAcc && accGrid) accGrid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-20 font-bold">No accomplishments found for this semester.</p>';
+                        if (!hasFin && finGrid) finGrid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-20 font-bold">No financial reports found for this semester.</p>';
+                    } else {
+                        if (accGrid) accGrid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-20 font-bold">No reports found in the database.</p>';
+                        if (finGrid) finGrid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-20 font-bold">No reports found in the database.</p>';
+                    }
+                } catch (err) {
+                    console.error("Failed to fetch reports:", err);
+                    if (accGrid) accGrid.innerHTML = '<p class="col-span-full text-center text-red-400 py-20 font-bold">Failed to load reports. Check console.</p>';
+                }
+            }
+
+            // ==========================================
+            // MODAL LOGIC (Event Delegation)
+            // ==========================================
+            const modal = document.getElementById('event-modal');
+            const backdrop = document.getElementById('modal-backdrop');
+            const contentBox = document.getElementById('modal-content-box');
+            const closeBtn = document.getElementById('modal-close');
+
+            const modalImg = document.getElementById('modal-img');
+            const modalBadge = document.getElementById('modal-badge');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDate = document.getElementById('modal-date');
+            const modalDesc = document.getElementById('modal-desc');
+            const modalExtended = document.getElementById('modal-extended-content');
+
+            // Attach listener to body so it works for dynamically injected cards
+            document.body.addEventListener('click', (e) => {
+                const card = e.target.closest('.report-card');
+                if (!card) return;
+
+                const img = card.querySelector('.card-img') ? card.querySelector('.card-img').src : '';
+                const badgeText = card.querySelector('.card-badge') ? card.querySelector('.card-badge').textContent.trim() : '';
+                const dateText = card.querySelector('.card-date') ? card.querySelector('.card-date').textContent.trim() : '';
+                const titleText = card.querySelector('.card-title') ? card.querySelector('.card-title').textContent.trim() : '';
+                const descText = card.querySelector('.card-desc') ? card.querySelector('.card-desc').textContent.trim() : '';
+                const extendedData = card.querySelector('.modal-extended-data');
+
+                modalImg.src = img;
+                modalBadge.textContent = badgeText;
+
+                let badgeClass = '';
+                let dateClass = '';
+
+                if (badgeText.toLowerCase().includes('major')) {
+                    badgeClass = 'px-4 py-1.5 rounded-full bg-purple-600 text-white text-[10px] font-black uppercase tracking-widest shadow-[0_0_15px_rgba(168,85,247,0.4)]';
+                    dateClass = 'text-purple-400 font-bold tracking-widest uppercase mt-2 text-sm';
+                } else if (badgeText.toLowerCase().includes('minor')) {
+                    badgeClass = 'px-4 py-1.5 rounded-full bg-blue-500 text-white text-[10px] font-black uppercase tracking-widest shadow-[0_0_15px_rgba(59,130,246,0.4)]';
+                    dateClass = 'text-blue-400 font-bold tracking-widest uppercase mt-2 text-sm';
+                } else if (badgeText.toLowerCase().includes('project')) {
+                    badgeClass = 'px-4 py-1.5 rounded-full bg-cyan-400 text-dark text-[10px] font-black uppercase tracking-widest shadow-[0_0_15px_rgba(34,211,238,0.4)]';
+                    dateClass = 'text-cyan-400 font-bold tracking-widest uppercase mt-2 text-sm';
+                } else {
+                    badgeClass = 'px-4 py-1.5 rounded-full bg-white text-dark text-[10px] font-black uppercase tracking-widest';
+                    dateClass = 'text-white font-bold tracking-widest uppercase mt-2 text-sm';
+                }
+
+                modalBadge.className = badgeClass + ' mb-3 inline-block';
+                modalDate.className = dateClass;
+
+                modalTitle.textContent = titleText;
+                modalDate.textContent = dateText;
+                modalDesc.textContent = descText;
+
+                if (extendedData) {
+                    modalExtended.innerHTML = extendedData.innerHTML;
+                    modalExtended.classList.remove('hidden');
+                } else {
+                    modalExtended.innerHTML = '';
+                    modalExtended.classList.add('hidden');
+                }
+
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+
+                setTimeout(() => {
+                    backdrop.classList.remove('opacity-0');
+                    contentBox.classList.remove('opacity-0', 'scale-95');
+                    contentBox.classList.add('opacity-100', 'scale-100');
+                }, 10);
+            });
+
+            const closeModal = () => {
+                backdrop.classList.add('opacity-0');
+                contentBox.classList.remove('opacity-100', 'scale-100');
+                contentBox.classList.add('opacity-0', 'scale-95');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }, 300);
+            };
+
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (backdrop) backdrop.addEventListener('click', closeModal);
+        });
+    </script>
+</body>
+
+</html>
