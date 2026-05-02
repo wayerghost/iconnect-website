@@ -29,7 +29,7 @@ body {
     background-image: url('assets/hero_bg.png');
     background-size: cover;
     background-position: center;
-    filter: brightness(0.3) contrast(1.1);
+    filter: brightness(0.7) contrast(1.1);
 }
 
 .mouse-spotlight {
@@ -38,8 +38,9 @@ body {
     z-index: -1;
     background: radial-gradient(
         600px circle at var(--mouse-x) var(--mouse-y),
-        rgba(90, 190, 176, 0.12),
-        transparent 40%
+        rgba(90, 190, 176, 0.4) 0%,
+        rgba(90, 190, 176, 0.15) 25%,
+        transparent 50%
     );
     pointer-events: none;
 }
