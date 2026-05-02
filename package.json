@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "i-Connect Student Society Website",
   "scripts": {
-    "build": "tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
-    "watch": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "build": "node node_modules/tailwindcss/lib/cli.js -i ./src/input.css -o ./dist/output.css --minify",
+    "watch": "node node_modules/tailwindcss/lib/cli.js -i ./src/input.css -o ./dist/output.css --watch",
     "dev": "live-server .",
     "start": "live-server ."
   },
