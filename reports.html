@@ -235,9 +235,50 @@
                         <p id="modal-desc" class="text-gray-300 leading-relaxed text-lg"></p>
                     </div>
 
+                    <!-- Metrics & Feedback -->
+                    <div id="modal-metrics" class="grid grid-cols-1 md:grid-cols-2 gap-6 accomplishment-only-modal">
+                        <div
+                            class="bg-white/5 rounded-2xl p-6 border border-white/5 hover:bg-accent/5 transition-colors">
+                            <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-2">Total
+                                Attendees</div>
+                            <div id="modal-attendees" class="font-black text-white text-3xl"></div>
+                        </div>
+                        <div
+                            class="bg-white/5 rounded-2xl p-6 border border-white/5 hover:bg-accent/5 transition-colors">
+                            <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-2">Evaluation
+                                Score</div>
+                            <div id="modal-evaluation" class="font-black text-white text-3xl"></div>
+                        </div>
+                        <div
+                            class="col-span-full bg-dark/50 border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-colors">
+                            <div class="flex items-center gap-2 mb-4">
+                                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.21 3.79 6.83-.24 1.44-.94 2.89-2.14 4.04a1 1 0 00.56 1.7c2.6.21 5.06-1.12 6.55-2.61 1.45.39 3.01.6 4.64.6 5.52 0 10-3.92 10-8.75S17.52 2 12 2zm0 17.5c-1.57 0-3.1-.21-4.52-.61a1 1 0 00-.83.15c-1.28 1.05-3.08 1.95-4.99 1.96 1.03-1.2 1.63-2.67 1.86-4.08a1 1 0 00-.33-.93C1.29 14.54 0 12.35 0 9.75 0 4.37 5.37 0 12 0s12 4.37 12 9.75-5.37 9.75-12 9.75z" />
+                                </svg>
+                                <div class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Top
+                                    Participant Feedback</div>
+                            </div>
+                            <p id="modal-feedback" class="text-gray-300 italic text-lg leading-relaxed"></p>
+                        </div>
+                    </div>
+
                     <!-- Additional Content (from hidden div) -->
                     <div id="modal-extended-content" class="text-gray-400 space-y-4 text-base leading-relaxed">
                         <!-- Extra details injected here -->
+                    </div>
+
+                    <!-- Action Button (Conditional) -->
+                    <div id="modal-action-container" class="pt-6 hidden">
+                        <a id="modal-report-link" href="javascript:void(0)" target="_blank" rel="noopener noreferrer"
+                            class="w-full md:w-fit bg-gradient-to-r from-primary to-accent hover:shadow-glow-accent px-10 py-4 rounded-2xl font-black text-sm text-dark transition-all hover:-translate-y-1 active:scale-95 shadow-lg flex items-center justify-center gap-3 relative z-10">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                </path>
+                            </svg>
+                            View Official Report
+                        </a>
                     </div>
                 </div>
             </div>
@@ -329,7 +370,7 @@
                     const { data: reports, error } = await supabase
                         .from('reports')
                         .select('*')
-                        .order('created_at', { ascending: false });
+                        .order('date', { ascending: false });
 
                     if (error) throw error;
 
@@ -347,64 +388,52 @@
                         });
 
                         reports.forEach(report => {
-                            let badgeClass = 'bg-white text-dark shadow-none';
+                            let badgeClass = 'bg-white text-dark';
                             let dateClass = 'text-white';
-                            let accentClass = 'accent';
+                            let accentColor = 'accent';
+                            let glowColor = 'rgba(0, 242, 254, 0.3)';
 
                             if (report.category && report.category.includes('Major')) {
                                 badgeClass = 'bg-purple-600 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)]';
                                 dateClass = 'text-purple-400';
-                                accentClass = 'purple-500';
+                                accentColor = 'purple-500';
+                                glowColor = 'rgba(168, 85, 247, 0.3)';
                             } else if (report.category && report.category.includes('Minor')) {
-                                badgeClass = 'bg-blue-500 text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]';
+                                badgeClass = 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.4)]';
                                 dateClass = 'text-blue-400';
-                                accentClass = 'blue-500';
+                                accentColor = 'blue-600';
+                                glowColor = 'rgba(37, 99, 235, 0.3)';
                             } else if (report.category && report.category.includes('Project')) {
-                                badgeClass = 'bg-cyan-400 text-dark shadow-[0_0_15px_rgba(34,211,238,0.4)]';
-                                dateClass = 'text-cyan-400';
-                                accentClass = 'cyan-400';
+                                badgeClass = 'bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.4)]';
+                                dateClass = 'text-emerald-400';
+                                accentColor = 'emerald-500';
+                                glowColor = 'rgba(16, 185, 129, 0.3)';
                             }
+
+                            const displayCat = report.category || 'N/A';
 
                             const displayDate = report.date ? new Date(report.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'N/A';
 
-                            let btnClass = 'bg-accent text-dark shadow-glow-accent';
-                            if (accentClass === 'purple-500') btnClass = 'bg-purple-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.5)]';
-                            else if (accentClass === 'blue-500') btnClass = 'bg-blue-500 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]';
-                            else if (accentClass === 'cyan-400') btnClass = 'bg-cyan-400 text-dark shadow-[0_0_15px_rgba(34,211,238,0.5)]';
-
-                            let glowColor = 'rgba(90, 190, 176, 0.3)';
-                            if (accentClass === 'purple-500') glowColor = 'rgba(168, 85, 247, 0.3)';
-                            else if (accentClass === 'blue-500') glowColor = 'rgba(59, 130, 246, 0.3)';
-                            else if (accentClass === 'cyan-400') glowColor = 'rgba(34, 211, 238, 0.3)';
-
                             const cardHtml = `
-                                <div class="report-card cursor-pointer bg-surface-dark/40 backdrop-blur-3xl border border-white/5 rounded-3xl overflow-hidden group hover:border-${accentClass}/40 hover:bg-surface-dark/60 transition-all duration-500 hover-lift shadow-xl flex flex-col relative" style="--glow-color: ${glowColor}">
+                                <div class="report-card cursor-pointer bg-surface-dark/40 backdrop-blur-3xl border border-white/5 rounded-3xl overflow-hidden group hover:border-${accentColor}/30 hover:bg-surface-dark/60 transition-all duration-500 hover:scale-[1.02] shadow-lg flex flex-col relative" style="--glow-color: ${glowColor}">
                                     <!-- Dynamic Glow Background -->
-                                    <div class="absolute -inset-2 bg-gradient-to-br from-${accentClass}/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl z-0"></div>
+                                    <div class="absolute -inset-2 bg-gradient-to-br from-${accentColor}/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl z-0"></div>
                                     
-                                    <div class="absolute inset-0 bg-dark/40 backdrop-blur-[2px] z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                                        <span class="${btnClass} px-6 py-3 rounded-full font-black text-sm flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                            View Full Report
-                                        </span>
-                                    </div>
-
+                                    <!-- Featured Image & Badge -->
                                     <div class="relative aspect-[4/3] overflow-hidden border-b border-white/5">
                                         <img src="${report.image_url}" alt="Event Image" class="card-img w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                                         <div class="absolute top-4 left-4 z-10">
                                             <span class="card-badge px-4 py-1.5 rounded-full ${badgeClass} text-[10px] font-black uppercase tracking-widest shadow-lg">
-                                                ${report.category || 'N/A'}
+                                                ${displayCat}
                                             </span>
                                         </div>
                                     </div>
 
+                                    <!-- Content -->
                                     <div class="p-6 md:p-8 space-y-5 flex-grow flex flex-col">
                                         <div>
                                             <p class="card-date text-[11px] ${dateClass} font-bold tracking-widest uppercase mb-2">${displayDate}</p>
-                                            <h3 class="card-title font-outfit text-2xl font-black text-white group-hover:text-${accentClass} transition-colors leading-tight">
+                                            <h3 class="card-title font-outfit text-2xl font-black text-white group-hover:text-${accentColor} ${report.category && report.category.includes('Major') ? 'text-glow-purple' : report.category && report.category.includes('Minor') ? 'text-glow-blue' : 'text-glow-emerald'} transition-all duration-300 leading-tight">
                                                 ${report.title || 'Untitled'}
                                             </h3>
                                         </div>
@@ -413,29 +442,35 @@
                                             ${report.description || 'No description provided.'}
                                         </p>
 
+                                        <!-- Grid Stats -->
                                         <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
-                                            <div class="bg-white/5 rounded-2xl p-4 group-hover:bg-${accentClass}/10 transition-colors">
+                                            <div class="bg-white/5 rounded-2xl p-4 group-hover:bg-${accentColor}/10 transition-colors">
                                                 <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Attendees</div>
                                                 <div class="font-black text-white text-xl">${report.attendees || 'N/A'}</div>
                                             </div>
-                                            <div class="bg-white/5 rounded-2xl p-4 group-hover:bg-${accentClass}/10 transition-colors">
+                                            <div class="bg-white/5 rounded-2xl p-4 group-hover:bg-${accentColor}/10 transition-colors">
                                                 <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Evaluation</div>
                                                 <div class="font-black text-white text-xl">${report.evaluation || 'N/A'}</div>
                                             </div>
                                         </div>
                                         
+                                        <!-- Feedback -->
                                         <div class="bg-dark/50 border border-white/5 rounded-2xl p-4 mt-2 group-hover:border-white/10 transition-colors">
                                             <div class="flex items-center gap-2 mb-2">
-                                                <svg class="w-4 h-4 text-${accentClass}" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.21 3.79 6.83-.24 1.44-.94 2.89-2.14 4.04a1 1 0 00.56 1.7c2.6.21 5.06-1.12 6.55-2.61 1.45.39 3.01.6 4.64.6 5.52 0 10-3.92 10-8.75S17.52 2 12 2zm0 17.5c-1.57 0-3.1-.21-4.52-.61a1 1 0 00-.83.15c-1.28 1.05-3.08 1.95-4.99 1.96 1.03-1.2 1.63-2.67 1.86-4.08a1 1 0 00-.33-.93C1.29 14.54 0 12.35 0 9.75 0 4.37 5.37 0 12 0s12 4.37 12 9.75-5.37 9.75-12 9.75z"/></svg>
+                                                <svg class="w-4 h-4 text-${accentColor}" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.21 3.79 6.83-.24 1.44-.94 2.89-2.14 4.04a1 1 0 00.56 1.7c2.6.21 5.06-1.12 6.55-2.61 1.45.39 3.01.6 4.64.6 5.52 0 10-3.92 10-8.75S17.52 2 12 2zm0 17.5c-1.57 0-3.1-.21-4.52-.61a1 1 0 00-.83.15c-1.28 1.05-3.08 1.95-4.99 1.96 1.03-1.2 1.63-2.67 1.86-4.08a1 1 0 00-.33-.93C1.29 14.54 0 12.35 0 9.75 0 4.37 5.37 0 12 0s12 4.37 12 9.75-5.37 9.75-12 9.75z"/></svg>
                                                 <div class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Top Feedback</div>
                                             </div>
                                             <p class="text-xs text-gray-300 italic leading-relaxed">"${report.feedback || 'No feedback'}"</p>
                                         </div>
                                     </div>
 
-                                    <div class="hidden modal-extended-data">
-                                        ${report.extended_details || '<p>No extended details available.</p>'}
-                                    </div>
+                                    <!-- Hidden Data for Modal -->
+                                    <div class="hidden modal-extended-data">${report.extended_details || ''}</div>
+                                    <div class="hidden modal-report-url">${report.report_url || ''}</div>
+                                    <div class="hidden modal-data-attendees">${report.attendees || 'N/A'}</div>
+                                    <div class="hidden modal-data-evaluation">${report.evaluation || 'N/A'}</div>
+                                    <div class="hidden modal-data-feedback">${report.feedback || 'No feedback'}</div>
+                                    <div class="hidden modal-data-type">${report.report_type}</div>
                                 </div>
                             `;
 
@@ -493,13 +528,23 @@
                 const dateText = card.querySelector('.card-date') ? card.querySelector('.card-date').textContent.trim() : '';
                 const titleText = card.querySelector('.card-title') ? card.querySelector('.card-title').textContent.trim() : '';
                 const descText = card.querySelector('.card-desc') ? card.querySelector('.card-desc').textContent.trim() : '';
+
                 const extendedData = card.querySelector('.modal-extended-data');
+                const reportUrl = card.querySelector('.modal-report-url') ? card.querySelector('.modal-report-url').textContent.trim() : '';
+                const attendees = card.querySelector('.modal-data-attendees') ? card.querySelector('.modal-data-attendees').textContent.trim() : 'N/A';
+                const evaluation = card.querySelector('.modal-data-evaluation') ? card.querySelector('.modal-data-evaluation').textContent.trim() : 'N/A';
+                const feedback = card.querySelector('.modal-data-feedback') ? card.querySelector('.modal-data-feedback').textContent.trim() : '';
+                const type = card.querySelector('.modal-data-type') ? card.querySelector('.modal-data-type').textContent.trim() : '';
 
                 modalImg.src = img;
                 modalBadge.textContent = badgeText;
+                modalTitle.textContent = titleText;
+                modalDate.textContent = dateText;
+                modalDesc.textContent = descText;
 
-                let badgeClass = '';
-                let dateClass = '';
+                // Handle Badge & Date Styling
+                let badgeClass = 'px-4 py-1.5 rounded-full bg-white text-dark text-[10px] font-black uppercase tracking-widest';
+                let dateClass = 'text-white font-bold tracking-widest uppercase mt-2 text-sm';
 
                 if (badgeText.toLowerCase().includes('major')) {
                     badgeClass = 'px-4 py-1.5 rounded-full bg-purple-600 text-white text-[10px] font-black uppercase tracking-widest shadow-[0_0_15px_rgba(168,85,247,0.4)]';
@@ -510,18 +555,29 @@
                 } else if (badgeText.toLowerCase().includes('project')) {
                     badgeClass = 'px-4 py-1.5 rounded-full bg-cyan-400 text-dark text-[10px] font-black uppercase tracking-widest shadow-[0_0_15px_rgba(34,211,238,0.4)]';
                     dateClass = 'text-cyan-400 font-bold tracking-widest uppercase mt-2 text-sm';
-                } else {
-                    badgeClass = 'px-4 py-1.5 rounded-full bg-white text-dark text-[10px] font-black uppercase tracking-widest';
-                    dateClass = 'text-white font-bold tracking-widest uppercase mt-2 text-sm';
                 }
 
                 modalBadge.className = badgeClass + ' mb-3 inline-block';
                 modalDate.className = dateClass;
 
-                modalTitle.textContent = titleText;
-                modalDate.textContent = dateText;
-                modalDesc.textContent = descText;
+                // Handle Metrics (Show only for Accomplishment Reports)
+                const metricsSection = document.getElementById('modal-metrics');
+                const modalAttendees = document.getElementById('modal-attendees');
+                const modalEvaluation = document.getElementById('modal-evaluation');
+                const modalFeedback = document.getElementById('modal-feedback');
 
+                if (type === 'Accomplishment') {
+                    metricsSection.classList.remove('hidden');
+                    metricsSection.classList.add('grid');
+                    modalAttendees.textContent = attendees;
+                    modalEvaluation.textContent = evaluation;
+                    modalFeedback.textContent = feedback && feedback !== 'No feedback' ? `"${feedback}"` : 'No participant feedback recorded.';
+                } else {
+                    metricsSection.classList.add('hidden');
+                    metricsSection.classList.remove('grid');
+                }
+
+                // Handle Extended Content
                 if (extendedData) {
                     modalExtended.innerHTML = extendedData.innerHTML;
                     modalExtended.classList.remove('hidden');
@@ -530,6 +586,34 @@
                     modalExtended.classList.add('hidden');
                 }
 
+                // Handle Report URL Button
+                const actionContainer = document.getElementById('modal-action-container');
+                const reportLink = document.getElementById('modal-report-link');
+
+                if (reportUrl && reportUrl !== '') {
+                    reportLink.href = reportUrl;
+                    reportLink.target = "_blank";
+
+                    // Dynamic styling based on category
+                    let btnClass = 'w-full md:w-fit px-10 py-4 rounded-2xl font-black text-sm transition-all hover:-translate-y-1 active:scale-95 shadow-lg flex items-center justify-center gap-3 relative z-10 ';
+
+                    if (badgeText.toLowerCase().includes('major')) {
+                        btnClass += 'bg-purple-600 text-white hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]';
+                    } else if (badgeText.toLowerCase().includes('minor')) {
+                        btnClass += 'bg-blue-600 text-white hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]';
+                    } else if (badgeText.toLowerCase().includes('project')) {
+                        btnClass += 'bg-emerald-500 text-white hover:shadow-[0_0_20px_rgba(16,185,129,0.4)]';
+                    } else {
+                        btnClass += 'bg-blue-600 text-white hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]';
+                    }
+
+                    reportLink.className = btnClass;
+                    actionContainer.classList.remove('hidden');
+                } else {
+                    actionContainer.classList.add('hidden');
+                }
+
+                // Open Modal
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
                 document.body.style.overflow = 'hidden';

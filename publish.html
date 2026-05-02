@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publish Report - i-Connect Student Society</title>
+    <meta name="description" content="Administrator portal for publishing new organization reports.">
+    <link href="./dist/output.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="bg-dark text-[#f8f9fa] font-inter selection:bg-accent/30 overflow-x-hidden">
+    <!-- Background Grid and Overlay -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="background-overlay absolute inset-0 opacity-60"></div>
+        <div
+            class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-90 contrast-150">
+        </div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(27,117,188,0.2),transparent_70%)]">
+        </div>
+        <div class="mouse-spotlight"></div>
+    </div>
+
+    <main class="py-12 min-h-screen">
+        <section class="max-w-[1600px] mx-auto px-6">
+            <!-- Header Section -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
+                <div>
+                    <!-- Back Button -->
+                    <button onclick="window.location.href='reports.html'"
+                        class="group flex items-center gap-4 text-white/70 hover:text-white transition-all mb-8 bg-white/5 hover:bg-white/10 px-6 py-3 rounded-2xl w-fit backdrop-blur-md relative overflow-hidden active:scale-95 shadow-lg">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+                        </div>
+                        <svg class="w-4 h-4 transform group-hover:-translate-x-1.5 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        <span class="font-bold text-xs uppercase tracking-[0.2em] relative z-10">Back</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Side-by-Side Management Dashboard -->
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-12 items-start">
+
+                <!-- LEFT COLUMN: Sticky Publishing Form -->
+                <div class="xl:col-span-5 sticky top-12">
+                    <div
+                        class="bg-surface-dark/30 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-8 md:p-10 shadow-2xl animate-fade-in-up delay-3 overflow-hidden relative">
+                        <!-- Form Decoration -->
+                        <div class="absolute -top-24 -right-24 w-48 h-48 bg-accent/10 blur-[80px] pointer-events-none">
+                        </div>
+
+                        <div class="flex items-center justify-between mb-10 pb-6 border-b border-white/5">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center text-accent">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 2L14.4 8.4L21 9.6L16.2 14.1L17.7 20.7L12 17.4L6.3 20.7L7.8 14.1L3 9.6L9.6 8.4L12 2Z" />
+                                    </svg>
+                                </div>
+                                <h2 id="form-title" class="text-2xl font-black text-white font-outfit">Add New Report
+                                </h2>
+                            </div>
+                        </div>
+
+                        <form id="publish-form" class="space-y-8 max-h-[70vh] overflow-y-auto pr-4 custom-scrollbar">
+                            <!-- Classification -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <label class="text-xs font-semibold text-gray-500 tracking-wide ml-1">Type</label>
+                                    <select id="report_type" name="report_type" required
+                                        class="w-full bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent transition-all text-white font-medium text-sm cursor-pointer appearance-none">
+                                        <option value="Accomplishment">Accomplishment</option>
+                                        <option value="Financial">Financial</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-xs font-semibold text-gray-500 tracking-wide ml-1">Semester</label>
+                                    <select id="semester" name="semester" required
+                                        class="w-full bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent transition-all text-white font-medium text-sm cursor-pointer appearance-none">
+                                        <option value="1st Semester">1st Sem</option>
+                                        <option value="2nd Semester">2nd Sem</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Basic Info -->
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold text-gray-500 tracking-wide ml-1">Event
+                                    Title</label>
+                                <input type="text" id="title" name="title" required
+                                    class="w-full bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent transition-all text-white font-medium text-sm">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 accomplishment-only">
+                                <div class="space-y-2">
+                                    <label class="text-xs font-semibold text-gray-500 tracking-wide ml-1">Date</label>
+                                    <input type="date" id="date" name="date"
+                                        class="w-full bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent transition-all text-white font-medium text-sm">
+                                </div>
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-xs font-semibold text-gray-500 tracking-wide ml-1">Category</label>
+                                    <select id="category" name="category"
+                                        class="w-full bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent transition-all text-white font-medium text-sm cursor-pointer appearance-none">
+                                        <option value="Major Event">Major Event</option>
+                                        <option value="Minor Event">Minor Event</option>
+                                        <option value="Project">Project</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Image Upload -->
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold text-gray-500 tracking-wide ml-1">Media</label>
+                                <div class="relative group/upload h-32">
+                                    <input type="file" id="image_file" name="image_file" accept="image/*" required
+                                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                                    <div
+                                        class="w-full h-full bg-dark/50 border-2 border-dashed border-white/10 rounded-2xl flex flex-col items-center justify-center gap-1 group-hover/upload:border-accent/50 transition-all overflow-hidden">
+                                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                            </path>
+                                        </svg>
+                                        <p class="text-xs font-semibold text-gray-600 tracking-wide">Upload photo</p>
+                                        <div id="image-preview-container"
+                                            class="hidden absolute inset-0 bg-dark rounded-2xl overflow-hidden">
+                                            <img id="image-preview" src="#" alt="Preview"
+                                                class="w-full h-full object-cover">
+                                            <button type="button" id="remove-image"
+                                                class="absolute top-2 right-2 bg-black/60 p-1.5 rounded-lg text-white backdrop-blur-md z-20"><svg
+                                                    class="w-4 h-4" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-6 accomplishment-only">
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-xs font-semibold text-gray-500 tracking-wide ml-1">Attendees</label>
+                                    <input type="text" id="attendees" name="attendees"
+                                        class="w-full bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent transition-all text-white font-medium text-sm">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-xs font-semibold text-gray-500 tracking-wide ml-1">About the
+                                        Event</label>
+                                    <textarea id="description" name="description" rows="2"
+                                        class="w-full bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent transition-all text-white font-medium text-sm resize-none"></textarea>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="space-y-2">
+                                        <label
+                                            class="text-xs font-semibold text-gray-500 tracking-wide ml-1">Evaluation</label>
+                                        <input type="text" id="evaluation" name="evaluation"
+                                            class="w-full bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent transition-all text-white font-medium text-sm">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label
+                                            class="text-xs font-semibold text-gray-500 tracking-wide ml-1">Feedback</label>
+                                        <textarea id="feedback" name="feedback" rows="4"
+                                            class="w-full bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent transition-all text-white font-medium text-sm resize-none"></textarea>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-xs font-semibold text-gray-500 tracking-wide ml-1">Link</label>
+                                    <input type="url" id="report_url" name="report_url"
+                                        class="w-full bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent transition-all text-white font-medium text-sm">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-xs font-semibold text-gray-500 tracking-wide ml-1">Full
+                                        Details</label>
+                                    <textarea id="extended_details" name="extended_details" rows="5"
+                                        class="w-full bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-accent transition-all text-white font-medium text-sm resize-none"></textarea>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="mt-8 pt-8 border-t border-white/5">
+                            <button type="submit" form="publish-form" id="submit-btn"
+                                class="w-full relative group h-14 bg-primary rounded-2xl font-bold text-sm text-white tracking-wide transition-all hover:shadow-glow-primary hover:-translate-y-0.5 active:scale-[0.98] overflow-hidden">
+                                <span id="btn-text" class="relative z-10 flex items-center justify-center">
+                                    <span>Publish</span>
+                                </span>
+                                <div
+                                    class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: Data List Management -->
+                <div class="xl:col-span-7 space-y-8">
+                    <!-- Filters & Stats -->
+                    <div
+                        class="bg-surface-dark/20 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-8 shadow-2xl animate-fade-in-up delay-4">
+                        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                            <!-- Type Filters -->
+                            <div class="flex p-1.5 bg-dark/50 rounded-2xl border border-white/5 w-full md:w-auto">
+                                <button
+                                    class="mgmt-filter-btn active bg-accent text-dark px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all"
+                                    data-type="Accomplishment">Accomplishments</button>
+                                <button
+                                    class="mgmt-filter-btn text-gray-500 px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all hover:text-white"
+                                    data-type="Financial">Financials</button>
+                            </div>
+
+                            <!-- Semester Tabs -->
+                            <div class="flex gap-8 w-full md:w-auto justify-center">
+                                <button
+                                    class="mgmt-sem-btn active text-accent font-bold text-xs uppercase tracking-widest px-1 py-3 border-b-2 border-accent transition-all"
+                                    data-sem="1st Semester">1st Semester</button>
+                                <button
+                                    class="mgmt-sem-btn text-gray-600 font-bold text-xs uppercase tracking-widest px-1 py-3 border-b-2 border-transparent transition-all hover:text-gray-400"
+                                    data-sem="2nd Semester">2nd Semester</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Management Table -->
+                    <div
+                        class="bg-surface-dark/20 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-8 shadow-2xl animate-fade-in-up delay-5 min-h-[600px]">
+                        <div class="overflow-x-auto custom-scrollbar">
+                            <table class="w-full text-left border-separate border-spacing-y-4">
+                                <thead>
+                                    <tr class="text-xs font-bold text-gray-500 uppercase tracking-widest">
+                                        <th class="px-6 pb-2">Document Details</th>
+                                        <th class="px-6 pb-2">Category</th>
+                                        <th class="px-6 pb-2 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="management-list">
+                                    <tr class="animate-pulse">
+                                        <td colspan="3"
+                                            class="py-24 text-center text-gray-500 font-bold tracking-widest uppercase text-xs">
+                                            Synchronizing Database...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[300] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Supabase Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const SUPABASE_URL = 'https://zfmmzjhffkctltghntkj.supabase.co';
+            const SUPABASE_ANON_KEY = 'sb_publishable_FVbRM6AmfGDi-MbOAxYx-A_zu1dgewh';
+
+            if (!window.supabase) {
+                console.error("Supabase library not loaded!");
+                return;
+            }
+
+            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+            // Elements
+            const form = document.getElementById('publish-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text').querySelector('span');
+            const formTitle = document.getElementById('form-title');
+            const toastContainer = document.getElementById('toast-container');
+
+            let editingId = null;
+            let currentFilterType = 'Accomplishment';
+            let currentFilterSem = '1st Semester';
+            let allReports = [];
+
+            // ==========================================
+            // FORM STATE LOGIC
+            // ==========================================
+            const resetForm = () => {
+                editingId = null;
+                form.reset();
+                formTitle.textContent = 'Add New Report';
+                btnText.textContent = 'Publish';
+                imagePreviewContainer.classList.add('hidden');
+                imageFile.required = true;
+                toggleFields();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            // ==========================================
+            // FORM LOGIC
+            // ==========================================
+            const reportTypeSelect = document.getElementById('report_type');
+            const accomplishmentOnlyFields = document.querySelectorAll('.accomplishment-only');
+
+            const toggleFields = () => {
+                const isFinancial = reportTypeSelect.value === 'Financial';
+                accomplishmentOnlyFields.forEach(field => {
+                    const inputs = field.querySelectorAll('input, select, textarea');
+                    if (isFinancial) {
+                        field.classList.add('hidden');
+                        inputs.forEach(input => {
+                            input.setAttribute('data-was-required', input.required);
+                            input.required = false;
+                        });
+                    } else {
+                        field.classList.remove('hidden');
+                        inputs.forEach(input => {
+                            if (input.getAttribute('data-was-required') === 'true') {
+                                input.required = true;
+                            }
+                        });
+                    }
+                });
+            };
+
+            reportTypeSelect.addEventListener('change', toggleFields);
+
+            // Image Preview
+            const imageFile = document.getElementById('image_file');
+            const imagePreviewContainer = document.getElementById('image-preview-container');
+            const imagePreview = document.getElementById('image-preview');
+            const removeImageBtn = document.getElementById('remove-image');
+
+            imageFile.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        imagePreview.src = e.target.result;
+                        imagePreviewContainer.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            removeImageBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                imageFile.value = '';
+                imagePreviewContainer.classList.add('hidden');
+                imagePreview.src = '#';
+                imageFile.required = !editingId;
+            });
+
+            // ==========================================
+            // MANAGEMENT LOGIC
+            // ==========================================
+            const managementList = document.getElementById('management-list');
+            const filterBtns = document.querySelectorAll('.mgmt-filter-btn');
+            const semBtns = document.querySelectorAll('.mgmt-sem-btn');
+
+            async function fetchReports() {
+                const { data, error } = await supabase
+                    .from('reports')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    console.error("Error fetching reports:", error);
+                    return;
+                }
+
+                allReports = data;
+                renderManagementList();
+            }
+
+            function renderManagementList() {
+                const filtered = allReports.filter(r => r.report_type === currentFilterType && r.semester === currentFilterSem);
+
+                if (filtered.length === 0) {
+                    managementList.innerHTML = `
+                        <tr>
+                            <td colspan="3" class="py-24 text-center border border-white/5 rounded-[2rem] bg-white/5">
+                                <p class="text-gray-500 font-bold tracking-widest uppercase text-xs">No ${currentFilterType.toLowerCase()} reports found for ${currentFilterSem}.</p>
+                            </td>
+                        </tr>`;
+                    return;
+                }
+
+                managementList.innerHTML = filtered.map(report => {
+                    let badgeClass = 'bg-accent/10 text-accent';
+                    const cat = report.category || 'Financial';
+                    if (cat.includes('Major')) badgeClass = 'bg-purple-500/10 text-purple-400';
+                    else if (cat.includes('Minor')) badgeClass = 'bg-blue-500/10 text-blue-400';
+                    else if (cat.includes('Project')) badgeClass = 'bg-emerald-500/10 text-emerald-400';
+
+                    // Simplify display name for the table
+                    const displayCat = cat.replace(' Event', '').replace('Project', 'Projects');
+
+                    return `
+                        <tr class="group">
+                            <td class="px-6 py-4 bg-white/5 rounded-l-2xl border-y border-l border-white/5 group-hover:bg-white/10 group-hover:border-accent/20 transition-all">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl overflow-hidden bg-dark border border-white/10 flex-shrink-0 shadow-lg">
+                                        <img src="${report.image_url}" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <span class="font-bold text-white line-clamp-1 text-sm tracking-tight">${report.title}</span>
+                                        <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">${new Date(report.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 bg-white/5 border-y border-white/5 group-hover:bg-white/10 transition-all">
+                                <span class="px-3 py-1 rounded-lg ${badgeClass} text-[10px] font-bold uppercase tracking-widest">
+                                    ${displayCat}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 bg-white/5 rounded-r-2xl border-y border-white/5 group-hover:bg-white/10 transition-all text-right">
+                                <div class="flex items-center justify-end gap-3">
+                                    <button onclick="editReport('${report.id}')" class="p-3 bg-white/5 hover:bg-accent hover:text-dark text-gray-500 rounded-xl transition-all group/btn" title="Edit Record">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                    </button>
+                                    <button onclick="deleteReport('${report.id}')" class="p-3 bg-white/5 hover:bg-red-500 hover:text-white text-gray-500 rounded-xl transition-all" title="Delete Record">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            window.deleteReport = async (id) => {
+                const report = allReports.find(r => String(r.id) === String(id));
+                const title = report ? report.title : 'this report';
+                showToast('confirm', 'Delete report?', `"${title}"`, id);
+            };
+
+            window.confirmDelete = async (id) => {
+                const report = allReports.find(r => String(r.id) === String(id));
+                const title = report ? report.title : 'record';
+                const { error } = await supabase.from('reports').delete().eq('id', id);
+                if (error) {
+                    showToast('error', 'Delete failed', error.message);
+                } else {
+                    showToast('success', 'Deleted', `"${title}" was removed.`);
+                    fetchReports();
+                }
+            };
+
+            window.editReport = (id) => {
+                const report = allReports.find(r => String(r.id) === String(id));
+                if (!report) {
+                    showToast('error', 'Not found', 'Could not load the selected report.');
+                    return;
+                }
+
+                editingId = id;
+                formTitle.textContent = 'Edit Report';
+                btnText.textContent = 'Update';
+
+                // Fill Form
+                document.getElementById('report_type').value = report.report_type;
+                document.getElementById('semester').value = report.semester;
+                document.getElementById('title').value = report.title;
+                document.getElementById('date').value = report.date || '';
+                document.getElementById('category').value = report.category || 'Major Event';
+                document.getElementById('attendees').value = report.attendees || '';
+                document.getElementById('evaluation').value = report.evaluation || '';
+                document.getElementById('description').value = report.description || '';
+                document.getElementById('feedback').value = report.feedback || '';
+                document.getElementById('extended_details').value = report.extended_details || '';
+                document.getElementById('report_url').value = report.report_url || '';
+
+                imagePreview.src = report.image_url;
+                imagePreviewContainer.classList.remove('hidden');
+                imageFile.required = false;
+
+                toggleFields();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                showToast('info', 'Editing', `"${report.title}" loaded into form.`);
+            };
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active', 'bg-accent', 'text-dark'));
+                    filterBtns.forEach(b => b.classList.add('text-gray-400'));
+                    btn.classList.add('active', 'bg-accent', 'text-dark');
+                    btn.classList.remove('text-gray-400');
+                    currentFilterType = btn.dataset.type;
+                    renderManagementList();
+                });
+            });
+
+            semBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    semBtns.forEach(b => {
+                        b.classList.remove('active', 'text-accent', 'border-accent');
+                        b.classList.add('text-gray-500', 'border-transparent');
+                    });
+                    btn.classList.add('active', 'text-accent', 'border-accent');
+                    btn.classList.remove('text-gray-500', 'border-transparent');
+                    currentFilterSem = btn.dataset.sem;
+                    renderManagementList();
+                });
+            });
+
+            // Initial Load
+            fetchReports();
+
+            // ==========================================
+            // FORM SUBMISSION
+            // ==========================================
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                submitBtn.disabled = true;
+                const originalText = btnText.textContent;
+                btnText.textContent = 'Processing...';
+
+                const formData = new FormData(form);
+                const file = formData.get('image_file');
+                const reportType = formData.get('report_type');
+
+                try {
+                    let imageUrl = editingId ? allReports.find(r => String(r.id) === String(editingId)).image_url : '';
+
+                    if (file && file.size > 0) {
+                        const fileExt = file.name.split('.').pop();
+                        const fileName = `${Date.now()}.${fileExt}`;
+                        const { error: uploadError } = await supabase.storage.from('images').upload(fileName, file);
+                        if (uploadError) throw uploadError;
+                        const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(fileName);
+                        imageUrl = publicUrl;
+                    }
+
+                    const isFinancial = reportType === 'Financial';
+                    const reportData = {
+                        title: formData.get('title'),
+                        report_type: reportType,
+                        semester: formData.get('semester'),
+                        image_url: imageUrl,
+                        date: isFinancial ? new Date().toISOString().split('T')[0] : formData.get('date'),
+                        category: isFinancial ? 'Financial' : formData.get('category'),
+                        attendees: isFinancial ? 'N/A' : formData.get('attendees'),
+                        evaluation: isFinancial ? 'N/A' : formData.get('evaluation'),
+                        description: isFinancial ? 'Financial statement.' : formData.get('description'),
+                        feedback: isFinancial ? 'Official' : formData.get('feedback'),
+                        extended_details: isFinancial ? 'Financial records.' : formData.get('extended_details'),
+                        report_url: isFinancial ? null : formData.get('report_url')
+                    };
+
+                    let res;
+                    if (editingId) {
+                        res = await supabase.from('reports').update(reportData).eq('id', editingId);
+                    } else {
+                        reportData.created_at = new Date().toISOString();
+                        res = await supabase.from('reports').insert([reportData]);
+                    }
+
+                    if (res.error) throw res.error;
+
+                    showToast('success', editingId ? 'Updated!' : 'Published!', editingId ? 'Changes saved successfully.' : 'Report is now live.');
+                    resetForm();
+                    fetchReports();
+                } catch (err) {
+                    showToast('error', 'Error', err.message);
+                } finally {
+                    submitBtn.disabled = false;
+                    btnText.textContent = editingId ? 'Update' : 'Publish';
+                }
+            });
+
+            // ==========================================
+            // TOAST SYSTEM
+            // ==========================================
+            function showToast(type, title, message, deleteId = null) {
+                const id = `toast-${Date.now()}`;
+                const colors = {
+                    success: 'border-l-4 border-accent bg-dark/95',
+                    error: 'border-l-4 border-red-500 bg-dark/95',
+                    info: 'border-l-4 border-primary bg-dark/95',
+                    confirm: 'border-l-4 border-yellow-400 bg-dark/95',
+                };
+                const icons = {
+                    success: `<svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>`,
+                    error: `<svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>`,
+                    info: `<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20A10 10 0 0012 2z"/></svg>`,
+                    confirm: `<svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>`,
+                };
+
+                const actions = type === 'confirm' && deleteId
+                    ? `<div class="flex gap-2 mt-3">
+                        <button onclick="confirmDelete('${deleteId}'); document.getElementById('${id}').remove()" class="px-4 py-1.5 bg-red-500 hover:bg-red-600 text-white text-xs font-bold rounded-lg transition-colors">Delete</button>
+                        <button onclick="document.getElementById('${id}').remove()" class="px-4 py-1.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-lg transition-colors">Cancel</button>
+                      </div>`
+                    : '';
+
+                const toast = document.createElement('div');
+                toast.id = id;
+                toast.className = `pointer-events-auto flex items-start gap-3 px-5 py-4 rounded-2xl shadow-2xl backdrop-blur-xl max-w-sm w-full translate-x-full transition-transform duration-500 ${colors[type]}`;
+                toast.innerHTML = `
+                    <div class="flex-shrink-0 mt-0.5">${icons[type]}</div>
+                    <div class="flex-1">
+                        <p class="text-white font-bold text-sm">${title}</p>
+                        <p class="text-gray-400 text-xs mt-0.5">${message}</p>
+                        ${actions}
+                    </div>
+                    ${type !== 'confirm' ? `<button onclick="this.closest('[id]').remove()" class="text-gray-600 hover:text-white transition-colors ml-1 flex-shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>` : ''}
+                `;
+
+                toastContainer.appendChild(toast);
+                requestAnimationFrame(() => { requestAnimationFrame(() => { toast.classList.replace('translate-x-full', 'translate-x-0'); }); });
+
+                if (type !== 'confirm') {
+                    setTimeout(() => {
+                        toast.classList.replace('translate-x-0', 'translate-x-full');
+                        setTimeout(() => toast.remove(), 500);
+                    }, 4000);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

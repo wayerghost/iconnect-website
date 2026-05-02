@@ -101,6 +101,26 @@ body {
     box-shadow: 0 0 20px var(--primary-glow), 0 0 40px rgba(78, 84, 200, 0.15);
 }
 
+/* Category Specific Text Glows */
+.text-glow-purple {
+    transition: text-shadow 0.3s ease;
+}
+.group:hover .text-glow-purple {
+    text-shadow: 0 0 12px rgba(168, 85, 247, 0.6), 0 0 20px rgba(168, 85, 247, 0.2);
+}
+.text-glow-blue {
+    transition: text-shadow 0.3s ease;
+}
+.group:hover .text-glow-blue {
+    text-shadow: 0 0 12px rgba(37, 99, 235, 0.6), 0 0 20px rgba(37, 99, 235, 0.2);
+}
+.text-glow-emerald {
+    transition: text-shadow 0.3s ease;
+}
+.group:hover .text-glow-emerald {
+    text-shadow: 0 0 12px rgba(16, 185, 129, 0.6), 0 0 20px rgba(16, 185, 129, 0.2);
+}
+
 .glow-border {
     position: relative;
 }
