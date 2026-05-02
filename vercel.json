@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/(about|events|team)",
+      "destination": "/$1.html"
+    }
+  ]
+}
