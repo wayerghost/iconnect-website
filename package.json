@@ -1,10 +1,15 @@
 {
   "name": "iconnect-website",
   "version": "1.0.0",
+  "description": "i-Connect Student Society Website",
   "scripts": {
-    "build": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify"
+    "build": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
+    "watch": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "dev": "live-server .",
+    "start": "live-server ."
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "live-server": "^1.2.2"
   }
 }
