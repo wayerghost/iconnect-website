@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i-Connect Student Society</title>
+    <meta name="description"
+        content="Official website of i-Connect Student Society. Bridging the gap between theory and practice through innovation and community.">
+    <link href="./dist/output.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js?v=6" defer></script>
+</head>
+
+<body class="bg-dark text-[#f8f9fa] font-inter selection:bg-accent/30 overflow-x-hidden">
+    <!-- Background Grid and Overlay -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden">
+        <div class="background-overlay absolute inset-0 opacity-50"></div>
+        <div
+            class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-90 contrast-150">
+        </div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(27,117,188,0.2),transparent_70%)]">
+        </div>
+
+        <!-- Shooting Stars -->
+
+
+        <!-- Mouse Spotlight -->
+        <div class="mouse-spotlight"></div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="navbar fixed top-0 w-full z-50 py-5 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <!-- Brand -->
+            <div class="flex items-center gap-4 group cursor-pointer magnetic-item">
+                <div class="relative">
+                    <div
+                        class="absolute inset-0 bg-accent/20 blur-xl rounded-full group-hover:bg-accent/40 transition-all duration-700 animate-pulse-slow">
+                    </div>
+                    <img src="assets/iconnect_logo.png" alt="i-Connect Logo"
+                        class="h-10 w-auto relative z-10 transition-transform group-hover:scale-110 drop-shadow-[0_0_12px_rgba(0,242,254,0.6)]">
+                </div>
+                <span
+                    class="font-outfit font-black text-xl tracking-tighter uppercase hidden md:block group-hover:text-glow-accent transition-all duration-500">i-Connect
+                    Student Society</span>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center gap-8 font-medium">
+                <div class="relative group">
+                    <button class="flex items-center gap-1 hover:text-accent transition-colors py-2">
+                        About <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div
+                        class="absolute top-full left-0 w-48 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                        <div
+                            class="bg-surface-dark/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 shadow-2xl">
+                            <a href="#who-we-are"
+                                class="block py-2 px-3 hover:bg-white/5 hover:text-accent rounded-lg transition-colors text-sm">Our
+                                Goals</a>
+                            <a href="#pillars"
+                                class="block py-2 px-3 hover:bg-white/5 hover:text-accent rounded-lg transition-colors text-sm">What
+                                We Do</a>
+                            <a href="team.html"
+                                class="block py-2 px-3 hover:bg-white/5 hover:text-accent rounded-lg transition-colors text-sm">The
+                                Team</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="events.html" class="hover:text-accent transition-colors py-2 relative group">
+                    Events
+                    <span
+                        class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full shadow-glow-accent"></span>
+                </a>
+
+
+                <a href="reports.html"
+                    class="ml-4 bg-gradient-to-r from-primary to-accent hover:shadow-glow-accent px-6 py-2.5 rounded-full font-bold text-sm transition-all hover:-translate-y-1 active:scale-95 shadow-lg">
+                    View Reports
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu"
+                class="lg:hidden flex flex-col gap-1.5 cursor-pointer z-[60] p-2 hover:bg-white/5 rounded-lg transition-all">
+                <span class="bar w-7 h-0.5 bg-white rounded-full transition-all"></span>
+                <span class="bar w-5 h-0.5 bg-white rounded-full transition-all self-end"></span>
+                <span class="bar w-7 h-0.5 bg-white rounded-full transition-all"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-nav"
+            class="fixed inset-0 bg-dark/98 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 text-2xl font-bold translate-x-full transition-transform duration-700 lg:hidden z-50">
+            <a href="#home" class="mobile-link text-white/50 hover:text-white transition-colors">Home</a>
+            <a href="#who-we-are" class="mobile-link text-white/50 hover:text-white transition-colors">About</a>
+            <a href="events.html" class="mobile-link text-white/50 hover:text-white transition-colors">Events</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative pt-40 pb-20 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center">
+                <h1
+                    class="font-outfit text-5xl md:text-8xl font-black leading-[1.1] tracking-tight mb-8 animate-fade-in-up">
+                    where technology sp✦rks <br>
+                    <span
+                        class="bg-gradient-to-r from-primary-light via-accent to-primary-light bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(0,242,254,0.3)]">
+                        into breakthroughs</span>
+                </h1>
+                <p
+                    class="text-m md:text-m text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in-up delay-1">
+                    iCSS is a student organization that brings students together through
+                    leadership, teamwork, and tech-related events connecting classroom learning to industry
+                    practice.
+
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-6 animate-fade-in-up delay-2">
+                    <a href="https://www.facebook.com/ursb.ccsiconnect"
+                        class="px-10 py-4 rounded-xl bg-white text-dark font-black hover:bg-accent hover:text-white transition-all transform hover:scale-105 hover:shadow-glow-accent magnetic-item">
+                        Spark your Journey
+                    </a>
+                    <a href="reports.html"
+                        class="px-10 py-4 rounded-xl border border-white/20 font-black hover:bg-white/5 hover:border-accent/50 transition-all hover:text-accent hover-lift magnetic-item">
+                        View Reports
+                    </a>
+                </div>
+            </div>
+
+            <!-- Decorative Elements -->
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full -z-10 opacity-30 pointer-events-none">
+                <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 blur-[120px] rounded-full animate-pulse">
+                </div>
+                <div
+                    class="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/20 blur-[120px] rounded-full animate-pulse delay-1000">
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section (Vision & Mission) -->
+        <section id="who-we-are" class="py-32 relative">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="font-outfit text-4xl md:text-5xl font-black mb-6">About Us</h2>
+                    <div class="w-24 h-1.5 bg-accent mx-auto rounded-full shadow-glow-accent mb-6"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                    <!-- Vision Card -->
+                    <div class="group relative rounded-3xl p-[1px] hover-lift">
+                        <div class="absolute inset-0 glow-border rounded-3xl"></div>
+                        <div
+                            class="relative bg-surface-dark/40 backdrop-blur-3xl border border-white/5 rounded-3xl p-6 md:p-10 h-full flex flex-col overflow-hidden transition-all duration-700 hover:border-accent/30 hover:bg-surface-dark/60">
+                            <div
+                                class="absolute -top-24 -left-24 w-48 h-48 bg-accent/20 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 animate-pulse-slow">
+                            </div>
+
+                            <div
+                                class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-accent/20 transition-all shadow-glow-accent relative z-10">
+                                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                    </path>
+                                </svg>
+                            </div>
+
+                            <h3
+                                class="font-outfit text-2xl font-black mb-4 relative z-10 group-hover:text-accent transition-colors uppercase tracking-wide">
+                                Our Vision
+                            </h3>
+                            <p
+                                class="text-base text-gray-400 leading-relaxed relative z-10 group-hover:text-white transition-all flex-grow">
+                                i-Connect Student Society, as the sole computer-based organization in the
+                                University of Rizal System – Binangonan shall promote digital literacy, technical
+                                competency and technological capability among students that shall outgrow
+                                by the year 2016.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Mission Card -->
+                    <div class="group relative rounded-3xl p-[1px] hover-lift">
+                        <div class="absolute inset-0 glow-border rounded-3xl"></div>
+                        <div
+                            class="relative bg-surface-dark/40 backdrop-blur-3xl border border-white/5 rounded-3xl p-6 md:p-10 h-full flex flex-col overflow-hidden transition-all duration-700 hover:border-primary/30 hover:bg-surface-dark/60">
+                            <div
+                                class="absolute -bottom-24 -right-24 w-48 h-48 bg-primary/20 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 animate-pulse-slow">
+                            </div>
+
+                            <div
+                                class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary/20 transition-all shadow-glow-primary relative z-10">
+                                <svg class="w-6 h-6 text-primary-light" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                    </path>
+                                </svg>
+                            </div>
+
+                            <h3
+                                class="font-outfit text-2xl font-black mb-4 relative z-10 group-hover:text-primary-light transition-colors uppercase tracking-wide">
+                                Our Mission
+                            </h3>
+                            <p
+                                class="text-base text-gray-400 leading-relaxed relative z-10 group-hover:text-white transition-all flex-grow">
+                                i-Connect Student Society exists to provide supplementary knowledge in line
+                                with Information and Communication Technology, always promote computer
+                                courses that will unite the youth under the banner of leadership, technical
+                                excellence, and ethical conduct among themselves, while fostering
+                                community partnerships that enhance shared learning and social
+                                responsibility.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </section>
+
+        <!-- Pillars Section -->
+        <section id="pillars" class="py-32 bg-white/[0.02]">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="font-outfit text-4xl md:text-5xl font-black mb-6">What We Do</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Our core pillars are designed to ensure every member
+                        grows both technically and professionally.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Pillar 1 -->
+                    <div
+                        class="p-8 rounded-3xl bg-surface-dark/40 border border-white/5 hover:border-accent/30 hover:bg-surface-dark/60 transition-all group hover-lift glow-border">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-accent/20 transition-all shadow-glow-accent">
+                            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">Technical
+                            Workshops</h3>
+                        <p class="text-gray-400 group-hover:text-white transition-colors">Deep dives into modern tech
+                            stacks, from web dev to machine learning.</p>
+                    </div>
+                    <!-- Pillar 2 -->
+                    <div
+                        class="p-8 rounded-3xl bg-surface-dark/40 border border-white/5 hover:border-primary/30 hover:bg-surface-dark/60 transition-all group hover-lift glow-border">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary/20 transition-all shadow-glow-primary">
+                            <svg class="w-8 h-8 text-primary-light" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 group-hover:text-primary-light transition-colors">Community
+                            Impact</h3>
+                        <p class="text-gray-400 group-hover:text-white transition-colors">Leveraging technology to solve
+                            local problems and help our campus.</p>
+                    </div>
+                    <!-- Pillar 3 -->
+                    <div
+                        class="p-8 rounded-3xl bg-surface-dark/40 border border-white/5 hover:border-accent/30 hover:bg-surface-dark/60 transition-all group hover-lift glow-border">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-accent/20 transition-all shadow-glow-accent">
+                            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">Industry Partners
+                        </h3>
+                        <p class="text-gray-400 group-hover:text-white transition-colors">Direct connections with tech
+                            companies for internships and mentorship.</p>
+                    </div>
+                    <!-- Pillar 4 -->
+                    <div
+                        class="p-8 rounded-3xl bg-surface-dark/40 border border-white/5 hover:border-primary/30 hover:bg-surface-dark/60 transition-all group hover-lift glow-border">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary/20 transition-all shadow-glow-primary">
+                            <svg class="w-8 h-8 text-primary-light" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 group-hover:text-primary-light transition-colors">Leadership
+                        </h3>
+                        <p class="text-gray-400 group-hover:text-white transition-colors">Opportunities to lead teams,
+                            manage projects, and grow your soft skills.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Events Section -->
+        <section id="featured-events" class="py-32 relative">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Section Header -->
+                <div class="text-center space-y-6 mb-20">
+                    <h2 class="font-outfit text-5xl md:text-6xl font-black tracking-tight uppercase">Featured <span
+                            class="text-accent text-glow-accent">Events</span></h2>
+                    <div class="w-24 h-1.5 bg-accent mx-auto rounded-full shadow-glow-accent"></div>
+                    <p class="text-gray-400 text-xl max-w-2xl mx-auto">Highlighting our most impactful recent activities and projects.</p>
+                </div>
+
+                <!-- Accomplishments Grid: 3 columns on desktop, 2 on tablet, 1 on mobile -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- ========================================== -->
+                    <!-- CARD START -->
+                    <!-- ========================================== -->
+                    <div class="bg-surface-dark/40 backdrop-blur-3xl border border-white/5 rounded-3xl overflow-hidden group hover:border-purple-500/30 hover:bg-surface-dark/60 transition-all duration-500 hover:scale-[1.02] shadow-lg flex flex-col">
+                        
+                        <!-- 1 & 2. Featured Image & Category Badge -->
+                        <div class="relative aspect-[4/3] overflow-hidden border-b border-white/5">
+                            <!-- Easy to replace image path manually below -->
+                            <img src="assets/hero_bg.png" alt="Event Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            
+                            <div class="absolute top-4 left-4">
+                                <span class="px-4 py-1.5 rounded-full bg-purple-600 text-white text-[10px] font-black uppercase tracking-widest shadow-[0_0_15px_rgba(168,85,247,0.4)]">
+                                    Major Event
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Content Body -->
+                        <div class="p-6 md:p-8 space-y-5 flex-grow flex flex-col">
+                            
+                            <!-- 3 & 4. Title and Date -->
+                            <div>
+                                <p class="text-[11px] text-purple-400 font-bold tracking-widest uppercase mb-2">May 15, 2026</p>
+                                <h3 class="font-outfit text-2xl font-black text-white group-hover:text-purple-400 text-glow-purple transition-all duration-300 leading-tight">
+                                    Tech Symposium 2026
+                                </h3>
+                            </div>
+                            
+                            <!-- 5. Short Description -->
+                            <p class="text-gray-400 text-sm leading-relaxed flex-grow">
+                                A massive 2-day event that bridged the gap between academia and industry, featuring keynote speakers from top tech companies and hands-on workshops.
+                            </p>
+                            
+                            <!-- 6 & 7. Evaluation & Attendees Grid -->
+                            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
+                                <div class="bg-white/5 rounded-2xl p-4 group-hover:bg-purple-500/10 transition-colors">
+                                    <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Attendees</div>
+                                    <div class="font-black text-white text-xl">500+</div>
+                                </div>
+                                <div class="bg-white/5 rounded-2xl p-4 group-hover:bg-purple-500/10 transition-colors">
+                                    <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Evaluation</div>
+                                    <div class="font-black text-white text-xl">4.8/5.0</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 8. Feedback -->
+                            <div class="bg-dark/50 border border-white/5 rounded-2xl p-4 mt-2 group-hover:border-white/10 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-4 h-4 text-purple-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.21 3.79 6.83-.24 1.44-.94 2.89-2.14 4.04a1 1 0 00.56 1.7c2.6.21 5.06-1.12 6.55-2.61 1.45.39 3.01.6 4.64.6 5.52 0 10-3.92 10-8.75S17.52 2 12 2zm0 17.5c-1.57 0-3.1-.21-4.52-.61a1 1 0 00-.83.15c-1.28 1.05-3.08 1.95-4.99 1.96 1.03-1.2 1.63-2.67 1.86-4.08a1 1 0 00-.33-.93C1.29 14.54 0 12.35 0 9.75 0 4.37 5.37 0 12 0s12 4.37 12 9.75-5.37 9.75-12 9.75z"/></svg>
+                                    <div class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Top Feedback</div>
+                                </div>
+                                <p class="text-xs text-gray-300 italic leading-relaxed">
+                                    "The best networking event of the semester! I learned so much from the industry professionals and met amazing peers."
+                                </p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- ========================================== -->
+                    <!-- CARD END -->
+                    <!-- ========================================== -->
+
+
+                    <!-- ========================================== -->
+                    <!-- CARD START -->
+                    <!-- ========================================== -->
+                    <div class="bg-surface-dark/40 backdrop-blur-3xl border border-white/5 rounded-3xl overflow-hidden group hover:border-emerald-500/30 hover:bg-surface-dark/60 transition-all duration-500 hover:scale-[1.02] shadow-lg flex flex-col">
+                        
+                        <!-- 1 & 2. Featured Image & Category Badge -->
+                        <div class="relative aspect-[4/3] overflow-hidden border-b border-white/5">
+                            <!-- Easy to replace image path manually below -->
+                            <img src="assets/hero_bg.png" alt="Event Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter grayscale opacity-80 mix-blend-screen group-hover:filter-none">
+                            
+                            <div class="absolute top-4 left-4">
+                                <span class="px-4 py-1.5 rounded-full bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest shadow-[0_0_15px_rgba(16,185,129,0.4)]">
+                                    Project
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Content Body -->
+                        <div class="p-6 md:p-8 space-y-5 flex-grow flex flex-col">
+                            
+                            <!-- 3 & 4. Title and Date -->
+                            <div>
+                                <p class="text-[11px] text-emerald-400 font-bold tracking-widest uppercase mb-2">March 10, 2026</p>
+                                <h3 class="font-outfit text-2xl font-black text-white group-hover:text-emerald-400 text-glow-emerald transition-all duration-300 leading-tight">
+                                    Coding Bootcamp V2
+                                </h3>
+                            </div>
+                            
+                            <!-- 5. Short Description -->
+                            <p class="text-gray-400 text-sm leading-relaxed flex-grow">
+                                Intensive, project-based learning where students mastered modern web technologies and deployed their first professional portfolios.
+                            </p>
+                            
+                            <!-- 6 & 7. Evaluation & Attendees Grid -->
+                            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
+                                <div class="bg-white/5 rounded-2xl p-4 group-hover:bg-emerald-500/10 transition-colors">
+                                    <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Students</div>
+                                    <div class="font-black text-white text-xl">120</div>
+                                </div>
+                                <div class="bg-white/5 rounded-2xl p-4 group-hover:bg-emerald-500/10 transition-colors">
+                                    <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Projects Built</div>
+                                    <div class="font-black text-white text-xl">45</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 8. Feedback -->
+                            <div class="bg-dark/50 border border-white/5 rounded-2xl p-4 mt-2 group-hover:border-white/10 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.21 3.79 6.83-.24 1.44-.94 2.89-2.14 4.04a1 1 0 00.56 1.7c2.6.21 5.06-1.12 6.55-2.61 1.45.39 3.01.6 4.64.6 5.52 0 10-3.92 10-8.75S17.52 2 12 2zm0 17.5c-1.57 0-3.1-.21-4.52-.61a1 1 0 00-.83.15c-1.28 1.05-3.08 1.95-4.99 1.96 1.03-1.2 1.63-2.67 1.86-4.08a1 1 0 00-.33-.93C1.29 14.54 0 12.35 0 9.75 0 4.37 5.37 0 12 0s12 4.37 12 9.75-5.37 9.75-12 9.75z"/></svg>
+                                    <div class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Top Feedback</div>
+                                </div>
+                                <p class="text-xs text-gray-300 italic leading-relaxed">
+                                    "I finally understand React! The mentors were incredibly patient and the curriculum was practical."
+                                </p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- ========================================== -->
+                    <!-- CARD END -->
+                    <!-- ========================================== -->
+
+                    <!-- ========================================== -->
+                    <!-- CARD START -->
+                    <!-- ========================================== -->
+                    <div class="bg-surface-dark/40 backdrop-blur-3xl border border-white/5 rounded-3xl overflow-hidden group hover:border-blue-500/30 hover:bg-surface-dark/60 transition-all duration-500 hover:scale-[1.02] shadow-lg flex flex-col">
+                        
+                        <!-- 1 & 2. Featured Image & Category Badge -->
+                        <div class="relative aspect-[4/3] overflow-hidden border-b border-white/5">
+                            <img src="assets/hero_bg.png" alt="Event Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter hue-rotate-90 opacity-80 mix-blend-screen group-hover:filter-none">
+                            
+                            <div class="absolute top-4 left-4">
+                                <span class="px-4 py-1.5 rounded-full bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest shadow-[0_0_15px_rgba(37,99,235,0.4)]">
+                                    Minor Event
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Content Body -->
+                        <div class="p-6 md:p-8 space-y-5 flex-grow flex flex-col">
+                            
+                            <!-- 3 & 4. Title and Date -->
+                            <div>
+                                <p class="text-[11px] text-blue-400 font-bold tracking-widest uppercase mb-2">February 22, 2026</p>
+                                <h3 class="font-outfit text-2xl font-black text-white group-hover:text-blue-400 text-glow-blue transition-all duration-300 leading-tight">
+                                    UI/UX Design Workshop
+                                </h3>
+                            </div>
+                            
+                            <!-- 5. Short Description -->
+                            <p class="text-gray-400 text-sm leading-relaxed flex-grow">
+                                A hands-on seminar focusing on user-centered design principles and Figma prototyping for beginners.
+                            </p>
+                            
+                            <!-- 6 & 7. Evaluation & Attendees Grid -->
+                            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
+                                <div class="bg-white/5 rounded-2xl p-4 group-hover:bg-blue-500/10 transition-colors">
+                                    <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Attendees</div>
+                                    <div class="font-black text-white text-xl">85</div>
+                                </div>
+                                <div class="bg-white/5 rounded-2xl p-4 group-hover:bg-blue-500/10 transition-colors">
+                                    <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Evaluation</div>
+                                    <div class="font-black text-white text-xl">4.6/5.0</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 8. Feedback -->
+                            <div class="bg-dark/50 border border-white/5 rounded-2xl p-4 mt-2 group-hover:border-white/10 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.21 3.79 6.83-.24 1.44-.94 2.89-2.14 4.04a1 1 0 00.56 1.7c2.6.21 5.06-1.12 6.55-2.61 1.45.39 3.01.6 4.64.6 5.52 0 10-3.92 10-8.75S17.52 2 12 2zm0 17.5c-1.57 0-3.1-.21-4.52-.61a1 1 0 00-.83.15c-1.28 1.05-3.08 1.95-4.99 1.96 1.03-1.2 1.63-2.67 1.86-4.08a1 1 0 00-.33-.93C1.29 14.54 0 12.35 0 9.75 0 4.37 5.37 0 12 0s12 4.37 12 9.75-5.37 9.75-12 9.75z"/></svg>
+                                    <div class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Top Feedback</div>
+                                </div>
+                                <p class="text-xs text-gray-300 italic leading-relaxed">
+                                    "Extremely insightful! The speaker made Figma feel super approachable for someone with zero design background."
+                                </p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- ========================================== -->
+                    <!-- CARD END -->
+                    <!-- ========================================== -->
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section class="py-40 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
+                <h2 class="font-outfit text-6xl md:text-8xl font-black mb-10 tracking-tighter uppercase animate-float">
+                    Your Sp✦rk <br> <span class="text-accent text-glow-accent">St✦rts Here.</span></h2>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-8">
+                    <a href="#"
+                        class="px-12 py-5 rounded-2xl border border-white/10 font-black text-xl hover:bg-white/5 hover:border-accent/50 hover:text-accent transition-all transform hover:-translate-y-1">
+                        Follow our Journey
+                    </a>
+                </div>
+            </div>
+            <!-- Background Decoration -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full -z-10 opacity-20">
+                <div class="absolute w-[800px] h-[800px] bg-primary/20 blur-[150px] rounded-full animate-pulse"></div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-dark py-20 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <!-- 4-Column Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-16 pb-16">
+
+                <!-- Column 1: I-CONNECT -->
+                <div class="md:col-span-2 flex flex-col gap-6">
+                    <a href="index.html" class="flex items-center gap-3 group w-fit">
+                        <div class="relative">
+                            <div
+                                class="absolute inset-0 bg-accent/20 blur-xl rounded-full group-hover:bg-accent/40 transition-all duration-700">
+                            </div>
+                            <img src="assets/iconnect_logo.png" alt="i-Connect Logo"
+                                class="h-9 w-auto relative z-10 transition-transform group-hover:scale-110 drop-shadow-[0_0_12px_rgba(0,242,254,0.6)]">
+                        </div>
+                        <span
+                            class="font-outfit font-black text-xl tracking-tighter uppercase group-hover:text-accent transition-colors text-white">
+                            i-Connect
+                        </span>
+                    </a>
+                    <p class="text-gray-500 leading-relaxed max-w-xs">
+                        SparkForward: Where Tech Sparks Into Breakthroughs
+                    </p>
+                </div>
+
+                <!-- Column 2: ABOUT -->
+                <div class="flex flex-col gap-6">
+                    <h4 class="text-white font-bold uppercase tracking-widest text-xs">About</h4>
+                    <nav class="flex flex-col gap-4">
+                        <a href="index.html"
+                            class="text-gray-500 text-sm font-medium hover:text-accent transition-colors w-fit">Home</a>
+                        <a href="index.html#who-we-are"
+                            class="text-gray-500 text-sm font-medium hover:text-accent transition-colors w-fit">Our
+                            Story</a>
+                        <a href="team.html"
+                            class="text-gray-500 text-sm font-medium hover:text-accent transition-colors w-fit">The
+                            Team</a>
+                        <a href="events.html"
+                            class="text-gray-500 text-sm font-medium hover:text-accent transition-colors w-fit">Events</a>
+                    </nav>
+                </div>
+
+                <!-- Column 3: CONTACT -->
+                <div class="flex flex-col gap-6">
+                    <h4 class="text-white font-bold uppercase tracking-widest text-xs">Contact</h4>
+                    <div class="flex flex-col gap-5">
+                        <!-- Facebook Link -->
+                        <a href="https://facebook.com/ursb.ccsiconnect" target="_blank"
+                            class="flex items-center gap-3 group text-gray-500 hover:text-accent transition-all">
+                            <div class="text-accent group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                                </svg>
+                            </div>
+                            <span class="text-sm font-medium">/ursb.ccsiconnect</span>
+                        </a>
+                        <!-- X Link -->
+                        <a href="https://x.com" target="_blank"
+                            class="flex items-center gap-3 group text-gray-500 hover:text-accent transition-all">
+                            <div class="text-accent group-hover:scale-110 transition-transform w-5 h-5 flex items-center justify-center">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </svg>
+                            </div>
+                            <span class="text-sm font-medium">@iconnect_ursb</span>
+                        </a>
+                        <!-- Instagram Link -->
+                        <a href="https://instagram.com" target="_blank"
+                            class="flex items-center gap-3 group text-gray-500 hover:text-accent transition-all">
+                            <div class="text-accent group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                            </div>
+                            <span class="text-sm font-medium">@iconnect_ursb</span>
+                        </a>
+                        <!-- Email Link -->
+                        <a href="mailto:icss.2526@gmail.com"
+                            class="flex items-center gap-3 group text-gray-500 hover:text-accent transition-all">
+                            <div class="text-accent group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <span class="text-sm font-medium">icss.2526@gmail.com</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-center items-center">
+                <p class="text-gray-600 text-[10px] uppercase tracking-[0.2em] font-bold text-center">
+                    &copy; 2026 i-Connect Student Society. All Rights Reserved.
+                </p>
+            </div>
+
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -4,15 +4,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#1b75bc',
+        primary: '#75BBF0',
         'primary-light': '#4da1e1',
         accent: '#5abeb0',
         dark: '#051923',
         'surface-dark': 'rgba(12, 45, 64, 0.6)',
       },
       fontFamily: {
-        outfit: ['Outfit', 'sans-serif'],
-        inter: ['Inter', 'sans-serif'],
+        outfit: ['Poppins', 'sans-serif'],
+        inter: ['Poppins', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
+        sans: ['Poppins', 'sans-serif'],
       },
       boxShadow: {
         'glow-accent': '0 0 20px rgba(90, 190, 176, 0.4), 0 0 40px rgba(90, 190, 176, 0.2)',
