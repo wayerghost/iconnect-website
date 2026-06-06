@@ -66,13 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Navbar scroll effect
     const navbar = document.querySelector('.navbar');
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
 
     // Smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -141,42 +143,82 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     }
 
-    // Active Link Highlighting on Scroll
+    // ==========================================
+    // Navbar Underline Slider & Scroll Highlight Logic
+    // ==========================================
     const sections = document.querySelectorAll('section, footer');
     const navLinks = document.querySelectorAll('.nav-link');
+    const indicator = document.querySelector('.nav-indicator-line');
+    const nav = document.querySelector('nav');
 
-    window.addEventListener('scroll', () => {
+    const updateIndicatorPosition = (element, animate = true) => {
+        if (!indicator || !element || !nav) return;
+        const navRect = nav.getBoundingClientRect();
+        const elemRect = element.getBoundingClientRect();
+        const left = elemRect.left - navRect.left;
+        const width = elemRect.width;
+
+        if (!animate) {
+            indicator.classList.add('no-transition');
+        } else {
+            indicator.classList.remove('no-transition');
+        }
+
+        indicator.style.left = `${left}px`;
+        indicator.style.width = `${width}px`;
+        indicator.classList.add('active');
+
+        if (!animate) {
+            void indicator.offsetHeight;
+            indicator.classList.remove('no-transition');
+        }
+    };
+
+    const highlightNavigation = (animateIndicator = true) => {
         let current = '';
         const headerOffset = 150;
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
             if (window.pageYOffset >= (sectionTop - headerOffset)) {
                 current = section.getAttribute('id');
             }
         });
 
+        let newActiveLink = null;
         navLinks.forEach(link => {
-            // Remove active classes
             link.classList.remove('active', 'font-bold');
-            link.classList.add('text-white'); // ensure it stays white
+            link.classList.add('text-white');
 
-            const indicator = link.querySelector('.nav-indicator');
-            if (indicator) {
-                indicator.classList.remove('w-full');
-                indicator.classList.add('w-0');
-            }
-
-            // Add active class if this is the current section
-            if (link.getAttribute('href') === `#${current}`) {
+            const href = link.getAttribute('href');
+            if (href === `#${current}` || (href && href.endsWith('index.html') && current === 'home')) {
                 link.classList.add('active', 'font-bold');
-                if (indicator) {
-                    indicator.classList.remove('w-0');
-                    indicator.classList.add('w-full');
-                }
+                newActiveLink = link;
             }
         });
+
+        if (newActiveLink) {
+            updateIndicatorPosition(newActiveLink, animateIndicator);
+        } else {
+            const path = window.location.pathname.split('/').pop() || 'index.html';
+            const isHome = path === 'index.html' || path === '' || path === 'index';
+            if (isHome) {
+                const homeLink = Array.from(navLinks).find(l => l.getAttribute('href') === '#home' || l.getAttribute('href').endsWith('#home'));
+                if (homeLink) {
+                    homeLink.classList.add('active', 'font-bold');
+                    updateIndicatorPosition(homeLink, animateIndicator);
+                }
+            } else {
+                const activeLinkOnSubpage = document.querySelector('.nav-link.active');
+                if (activeLinkOnSubpage) {
+                    updateIndicatorPosition(activeLinkOnSubpage, animateIndicator);
+                }
+            }
+        }
+    };
+
+    window.addEventListener('scroll', () => {
+        highlightNavigation(true);
     });
 
     // Mobile menu logic
@@ -264,38 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Mirror Background Generator for seamless scrolling (rotated downward)
-    try {
-        const bgImg = new Image();
-        bgImg.onload = () => {
-            try {
-                const canvas = document.createElement('canvas');
-                canvas.width = bgImg.width;
-                canvas.height = bgImg.height * 2;
-                const ctx = canvas.getContext('2d');
 
-                const crop = 4; // crop top 4px to remove edge/border artifacts from the source image
-
-                // Draw vertically flipped (downward-facing) image at top (Y = 0 to 2000)
-                ctx.save();
-                ctx.translate(0, bgImg.height);
-                ctx.scale(1, -1);
-                ctx.drawImage(bgImg, 0, crop, bgImg.width, bgImg.height - crop, 0, 0, bgImg.width, bgImg.height);
-                ctx.restore();
-
-                // Draw normal image at bottom (Y = 2000 to 4000)
-                ctx.drawImage(bgImg, 0, crop, bgImg.width, bgImg.height - crop, 0, bgImg.height, bgImg.width, bgImg.height);
-
-                // Apply the new seamless image as the background
-                document.body.style.backgroundImage = `url(${canvas.toDataURL()})`;
-            } catch (canvasErr) {
-                console.warn("Canvas background generator failed (likely CORS on file://). Falling back to CSS.", canvasErr);
-            }
-        };
-        bgImg.src = 'assets/BG.png';
-    } catch (err) {
-        console.warn("Background generator failed:", err);
-    }
 
     // Officers Carousel Logic
     const track = document.getElementById('officers-track');
@@ -398,4 +409,134 @@ document.addEventListener('DOMContentLoaded', () => {
             startAutoplay();
         });
     }
+
+    // Initialize Navbar Underline Slider position
+    if (indicator) {
+        const activeLink = document.querySelector('.nav-link.active');
+        const prevIndexStr = sessionStorage.getItem('prev-nav-index');
+        const prevIndex = prevIndexStr !== null ? parseInt(prevIndexStr, 10) : -1;
+        let prevLink = null;
+        if (prevIndex >= 0 && prevIndex < navLinks.length) {
+            prevLink = navLinks[prevIndex];
+        }
+
+        sessionStorage.removeItem('prev-nav-index');
+
+        if (prevLink && prevLink !== activeLink) {
+            updateIndicatorPosition(prevLink, false);
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    highlightNavigation(true);
+                });
+            });
+        } else {
+            highlightNavigation(false);
+        }
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            updateIndicatorPosition(link, true);
+        });
+    });
+
+    if (nav) {
+        nav.addEventListener('mouseleave', () => {
+            const activeLink = document.querySelector('.nav-link.active');
+            if (activeLink) {
+                updateIndicatorPosition(activeLink, true);
+            } else {
+                indicator.classList.remove('active');
+            }
+        });
+    }
+
+    // Double-check active section highlighting after layout paints
+    window.addEventListener('load', () => {
+        highlightNavigation(false);
+    });
+
+    // ==========================================
+    // Seamless Page Loading Transition Logic
+    // ==========================================
+    const loader = document.querySelector('ic-loader');
+    const progressBar = document.getElementById('loader-progress-bar');
+    let progressInterval = null;
+
+    if (loader && progressBar) {
+        let currentProgress = 0;
+        progressInterval = setInterval(() => {
+            if (currentProgress < 75) {
+                currentProgress += Math.random() * 8;
+                progressBar.style.width = `${Math.min(currentProgress, 75)}%`;
+            } else {
+                clearInterval(progressInterval);
+            }
+        }, 100);
+    }
+
+    const hideLoader = () => {
+        if (progressInterval) clearInterval(progressInterval);
+        if (progressBar) progressBar.style.width = '100%';
+        setTimeout(() => {
+            if (loader) loader.classList.add('fade-out');
+        }, 200);
+    };
+
+    if (document.readyState === 'complete') {
+        hideLoader();
+    } else {
+        window.addEventListener('load', hideLoader);
+        // Safety fallback: always hide loader after a maximum of 500ms to prevent getting stuck
+        setTimeout(hideLoader, 500);
+    }
+
+    // Intercept navigation links
+    document.body.addEventListener('click', e => {
+        const link = e.target.closest('a');
+        if (link) {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            const pathname = (typeof link.pathname === 'string') ? link.pathname : '';
+            const isSamePage = pathname === window.location.pathname ||
+                (pathname === '/' && window.location.pathname.endsWith('index.html')) ||
+                (window.location.pathname === '/' && pathname.endsWith('index.html'));
+            const isAnchorScroll = isSamePage && link.hash;
+
+            if (
+                !href.startsWith('#') &&
+                !href.startsWith('javascript:') &&
+                !isAnchorScroll &&
+                link.target !== '_blank' &&
+                link.host === window.location.host
+            ) {
+                e.preventDefault();
+
+                // Store current nav index to slide from it on the new page
+                try {
+                    const activeNavIndex = Array.from(navLinks).indexOf(activeLink);
+                    if (activeNavIndex !== -1) {
+                        sessionStorage.setItem('prev-nav-index', activeNavIndex);
+                    }
+                } catch (err) {
+                    console.warn("Could not save to sessionStorage:", err);
+                }
+
+                // Show loader
+                if (loader && progressBar) {
+                    progressBar.style.width = '0%';
+                    loader.classList.remove('fade-out');
+                    setTimeout(() => {
+                        progressBar.style.width = '90%';
+                    }, 50);
+                }
+
+                const targetUrl = link.href;
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 400);
+            }
+        }
+    });
 });

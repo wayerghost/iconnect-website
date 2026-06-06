@@ -188,39 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 dayBtn.classList.add('today');
             }
 
-            // Check if this date has events
-            const dayEvents = monthEvents.filter(evt => evt.day === dayNum);
-            if (dayEvents.length > 0) {
-                dayBtn.classList.add('has-event');
-                // Use the category of the first event for styling indicator
-                dayBtn.classList.add(`event-${dayEvents[0].type}`);
-            }
 
-            // Check if this date is the selected date
-            if (selectedDate && selectedDate.year === year && selectedDate.month === month && selectedDate.day === dayNum) {
-                dayBtn.classList.add('active-day');
-            }
 
-            // Day click handler
-            dayBtn.addEventListener('click', () => {
-                // Remove active class from previous active day
-                const prevActive = daysGrid.querySelector('.active-day');
-                if (prevActive) prevActive.classList.remove('active-day');
 
-                // Set new selected date
-                selectedDate = { year, month, day: dayNum };
-                dayBtn.classList.add('active-day');
-
-                // Find event for selected day
-                const dayEvent = dayEvents[0]; // Gets first event of the day
-                if (dayEvent) {
-                    selectedEventId = dayEvent.id;
-                    renderSelectedEvent(dayEvent.id);
-                } else {
-                    selectedEventId = null;
-                    renderSelectedEvent(null, dayNum);
-                }
-            });
 
             daysGrid.appendChild(dayBtn);
         }

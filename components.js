@@ -9,10 +9,10 @@ class ICHeader extends HTMLElement {
     connectedCallback() {
         console.log("ic-header element connected!");
         const path = window.location.pathname.split('/').pop() || 'index.html';
-        const isHome = path === 'index.html' || path === '';
-        const isEvents = path === 'events.html';
-        const isReports = path === 'reports.html';
-        const isTeam = path === 'team.html';
+        const isHome = path === 'index.html' || path === '' || path === 'index';
+        const isEvents = path === 'events.html' || path === 'events';
+        const isReports = path === 'reports.html' || path === 'reports';
+        const isTeam = path === 'team.html' || path === 'team';
 
         const homePrefix = isHome ? '' : 'index.html';
 
@@ -40,30 +40,27 @@ class ICHeader extends HTMLElement {
                     </a>
 
                     <!-- Desktop Nav -->
-                    <nav class="hidden lg:flex items-center gap-8 font-medium text-sm">
+                    <nav class="hidden lg:flex items-center gap-8 font-medium text-sm relative">
                         <a href="${homePrefix}#home"
                             class="nav-link ${isHome ? 'active' : ''} text-white font-semibold py-2 relative transition-colors duration-300">
                             Home
-                            <span class="nav-indicator absolute bottom-0 left-0 ${isHome ? 'w-full' : 'w-0'} h-[2px] bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all duration-300"></span>
                         </a>
                         <a href="${homePrefix}#about" class="nav-link text-white font-semibold py-2 relative transition-colors duration-300">
                             About Us
-                            <span class="nav-indicator absolute bottom-0 left-0 w-0 h-[2px] bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all duration-300"></span>
                         </a>
                         <a href="${homePrefix}#officers"
                             class="nav-link text-white font-semibold py-2 relative transition-colors duration-300">
                             Officers
-                            <span class="nav-indicator absolute bottom-0 left-0 w-0 h-[2px] bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all duration-300"></span>
                         </a>
                         <a href="${homePrefix}#faqs" class="nav-link text-white font-semibold py-2 relative transition-colors duration-300">
                             FAQs
-                            <span class="nav-indicator absolute bottom-0 left-0 w-0 h-[2px] bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all duration-300"></span>
                         </a>
                         <a href="events.html"
                             class="nav-link ${isEvents ? 'active' : ''} text-white font-semibold py-2 relative transition-colors duration-300">
                             Events
-                            <span class="nav-indicator absolute bottom-0 left-0 ${isEvents ? 'w-full' : 'w-0'} h-[2px] bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-all duration-300"></span>
                         </a>
+                        <!-- Sliding Indicator Underline -->
+                        <div class="nav-indicator-line"></div>
                     </nav>
 
                     <a href="reports.html"
@@ -110,11 +107,11 @@ class ICFooter extends HTMLElement {
     connectedCallback() {
         console.log("ic-footer element connected!");
         const path = window.location.pathname.split('/').pop() || 'index.html';
-        const isHome = path === 'index.html' || path === '';
+        const isHome = path === 'index.html' || path === '' || path === 'index';
         const homePrefix = isHome ? '' : 'index.html';
 
         this.innerHTML = `
-            <footer id="contact" class="footer-glass pt-20 pb-8 mt-auto">
+            <footer id="contact" class="footer-glass pt-20 pb-8 mt-auto relative z-20">
                 <div class="max-w-7xl mx-auto px-6">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 text-center md:text-left">
 
@@ -187,18 +184,18 @@ class ICFooter extends HTMLElement {
                         <!-- Quick Links -->
                         <div class="flex flex-col items-center md:items-start gap-4">
                             <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-2">Quick Links</h4>
-                            <a href="${homePrefix}#home" class="text-gray-400 text-xs hover:text-accent transition-colors">Home</a>
-                            <a href="${homePrefix}#about" class="text-gray-400 text-xs hover:text-accent transition-colors">About Us</a>
-                            <a href="${homePrefix}#officers" class="text-gray-400 text-xs hover:text-accent transition-colors">Officers</a>
-                            <a href="${homePrefix}#faqs" class="text-gray-400 text-xs hover:text-accent transition-colors">FAQs</a>
+                            <a href="${homePrefix}#home" class="footer-link">Home</a>
+                            <a href="${homePrefix}#about" class="footer-link">About Us</a>
+                            <a href="${homePrefix}#officers" class="footer-link">Officers</a>
+                            <a href="${homePrefix}#faqs" class="footer-link">FAQs</a>
                         </div>
 
                         <!-- Resources -->
                         <div class="flex flex-col items-center md:items-start gap-4">
                             <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-2">Resources</h4>
-                            <a href="events.html" class="text-gray-400 text-xs hover:text-accent transition-colors">Events</a>
-                            <a href="reports.html" class="text-gray-400 text-xs hover:text-accent transition-colors">Reports</a>
-                            <a href="team.html" class="text-gray-400 text-xs hover:text-accent transition-colors">The Team</a>
+                            <a href="events.html" class="footer-link">Events</a>
+                            <a href="reports.html" class="footer-link">Reports</a>
+                            <a href="team.html" class="footer-link">The Team</a>
                         </div>
 
                     </div>
@@ -215,5 +212,14 @@ class ICFooter extends HTMLElement {
     }
 }
 
+class ICLoader extends HTMLElement {
+    connectedCallback() {
+        this.innerHTML = `
+            <div class="loader-progress" id="loader-progress-bar"></div>
+        `;
+    }
+}
+
 customElements.define('ic-header', ICHeader);
 customElements.define('ic-footer', ICFooter);
+customElements.define('ic-loader', ICLoader);
