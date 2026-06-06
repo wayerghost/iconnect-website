@@ -11,6 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="components.js?v=2" defer></script>
     <script src="script.js?v=6" defer></script>
 </head>
 
@@ -28,78 +29,7 @@
     </div>
 
     <!-- Header / Navbar -->
-    <header class="navbar fixed top-0 w-full z-50 py-5 transition-all duration-500">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-            <!-- Brand -->
-            <a href="index.html" class="flex items-center gap-4 group cursor-pointer magnetic-item">
-                <div class="relative">
-                    <div
-                        class="absolute inset-0 bg-accent/20 blur-xl rounded-full group-hover:bg-accent/40 transition-all duration-700 animate-pulse-slow">
-                    </div>
-                    <img src="assets/iconnect_logo.png" alt="i-Connect Logo"
-                        class="h-10 w-auto relative z-10 transition-transform group-hover:scale-110 drop-shadow-[0_0_12px_rgba(0,242,254,0.6)]">
-                </div>
-                <span
-                    class="font-outfit font-black text-xl tracking-tighter uppercase hidden md:block group-hover:text-glow-accent transition-all duration-500">i-Connect
-                    Student Society</span>
-            </a>
-
-            <!-- Desktop Nav -->
-            <nav class="hidden lg:flex items-center gap-8 font-medium">
-                <a href="index.html#home" class="hover:text-accent transition-colors py-2 relative group">
-                    Home
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full shadow-glow-accent"></span>
-                </a>
-                <a href="index.html#who-we-are" class="text-accent py-2 relative group">
-                    About
-                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accent shadow-glow-accent"></span>
-                </a>
-                <a href="events.html" class="hover:text-accent transition-colors py-2 relative group">
-                    Events
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full shadow-glow-accent"></span>
-                </a>
-                <a href="reports.html"
-                    class="ml-4 bg-gradient-to-r from-primary to-accent hover:shadow-glow-accent px-6 py-2.5 rounded-full font-bold text-sm transition-all hover:-translate-y-1 active:scale-95 shadow-lg">
-                    View Reports
-                </a>
-            </nav>
-
-            <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu"
-                class="lg:hidden flex flex-col gap-1.5 cursor-pointer z-[60] p-2 hover:bg-white/5 rounded-lg transition-all">
-                <span class="bar w-7 h-0.5 bg-white rounded-full transition-all"></span>
-                <span class="bar w-5 h-0.5 bg-white rounded-full transition-all self-end"></span>
-                <span class="bar w-7 h-0.5 bg-white rounded-full transition-all"></span>
-            </button>
-        </div>
-
-        <!-- Mobile Nav Menu -->
-        <div id="mobile-nav"
-            class="fixed inset-0 bg-dark/98 backdrop-blur-3xl flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-500 lg:hidden z-50 overflow-hidden">
-            <!-- Decorative Glow spots -->
-            <div class="absolute -top-10 -left-10 w-72 h-72 bg-primary/20 blur-[120px] rounded-full pointer-events-none"></div>
-            <div class="absolute -bottom-10 -right-10 w-72 h-72 bg-accent/20 blur-[120px] rounded-full pointer-events-none"></div>
-            
-            <div class="flex flex-col items-center gap-6 z-10 w-full px-6 text-center">
-                <a href="index.html#home" class="mobile-link text-white/60 hover:text-white text-3xl font-bold tracking-wide transition-all duration-300 relative py-2 block">
-                    Home
-                </a>
-                <a href="index.html#who-we-are" class="mobile-link text-accent text-3xl font-black tracking-wide transition-all duration-300 relative py-2 flex items-center justify-center gap-2">
-                    <span class="w-1.5 h-1.5 bg-accent rounded-full shadow-glow-accent"></span>
-                    About
-                </a>
-                <a href="events.html" class="mobile-link text-white/60 hover:text-white text-3xl font-bold tracking-wide transition-all duration-300 relative py-2 block">
-                    Events
-                </a>
-                
-                <div class="w-16 h-px bg-white/10 my-4"></div>
-                
-                <a href="reports.html" class="mobile-link w-full max-w-xs text-center bg-gradient-to-r from-primary to-accent hover:shadow-glow-accent px-8 py-4 rounded-2xl font-black text-lg text-white transition-all shadow-lg active:scale-95 hover:brightness-110">
-                    View Reports
-                </a>
-            </div>
-        </div>
-    </header>
+    <ic-header></ic-header>
 
     <main class="pt-24 pb-20">
         <!-- Team Section -->
@@ -213,113 +143,7 @@
         </section>
     </main>
     <!-- Footer -->
-    <footer class="bg-dark py-20 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-
-            <!-- 4-Column Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-16 pb-16">
-
-                <!-- Column 1: I-CONNECT -->
-                <div class="md:col-span-2 flex flex-col gap-6">
-                    <a href="index.html" class="flex items-center gap-3 group w-fit">
-                        <div class="relative">
-                            <div
-                                class="absolute inset-0 bg-accent/20 blur-xl rounded-full group-hover:bg-accent/40 transition-all duration-700">
-                            </div>
-                            <img src="assets/iconnect_logo.png" alt="i-Connect Logo"
-                                class="h-9 w-auto relative z-10 transition-transform group-hover:scale-110 drop-shadow-[0_0_12px_rgba(0,242,254,0.6)]">
-                        </div>
-                        <span
-                            class="font-outfit font-black text-xl tracking-tighter uppercase group-hover:text-accent transition-colors text-white">
-                            i-Connect
-                        </span>
-                    </a>
-                    <p class="text-gray-500 leading-relaxed max-w-xs">
-                        SparkForward: Where Tech Sparks Into Breakthroughs
-                    </p>
-                </div>
-
-                <!-- Column 2: ABOUT -->
-                <div class="flex flex-col gap-6">
-                    <h4 class="text-white font-bold uppercase tracking-widest text-xs">About</h4>
-                    <nav class="flex flex-col gap-4">
-                        <a href="index.html"
-                            class="text-gray-500 text-sm font-medium hover:text-accent transition-colors w-fit">Home</a>
-                        <a href="index.html#who-we-are"
-                            class="text-gray-500 text-sm font-medium hover:text-accent transition-colors w-fit">Our
-                            Story</a>
-                        <a href="team.html"
-                            class="text-gray-500 text-sm font-medium hover:text-accent transition-colors w-fit">The
-                            Team</a>
-                        <a href="events.html"
-                            class="text-gray-500 text-sm font-medium hover:text-accent transition-colors w-fit">Events</a>
-                    </nav>
-                </div>
-
-                <!-- Column 3: CONTACT -->
-                <div class="flex flex-col gap-6">
-                    <h4 class="text-white font-bold uppercase tracking-widest text-xs">Contact</h4>
-                    <div class="flex flex-col gap-5">
-                        <!-- Facebook Link -->
-                        <a href="https://facebook.com/ursb.ccsiconnect" target="_blank"
-                            class="flex items-center gap-3 group text-gray-500 hover:text-accent transition-all">
-                            <div class="text-accent group-hover:scale-110 transition-transform">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
-                                </svg>
-                            </div>
-                            <span class="text-sm font-medium">/ursb.ccsiconnect</span>
-                        </a>
-                        <!-- X Link -->
-                        <a href="https://x.com" target="_blank"
-                            class="flex items-center gap-3 group text-gray-500 hover:text-accent transition-all">
-                            <div class="text-accent group-hover:scale-110 transition-transform w-5 h-5 flex items-center justify-center">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                                </svg>
-                            </div>
-                            <span class="text-sm font-medium">@iconnect_ursb</span>
-                        </a>
-                        <!-- Instagram Link -->
-                        <a href="https://instagram.com" target="_blank"
-                            class="flex items-center gap-3 group text-gray-500 hover:text-accent transition-all">
-                            <div class="text-accent group-hover:scale-110 transition-transform">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                </svg>
-                            </div>
-                            <span class="text-sm font-medium">@iconnect_ursb</span>
-                        </a>
-                        <!-- Email Link -->
-                        <a href="mailto:icss.2526@gmail.com"
-                            class="flex items-center gap-3 group text-gray-500 hover:text-accent transition-all">
-                            <div class="text-accent group-hover:scale-110 transition-transform">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
-                            </div>
-                            <span class="text-sm font-medium">icss.2526@gmail.com</span>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Bottom Bar -->
-            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-center items-center">
-                <p class="text-gray-600 text-[10px] uppercase tracking-[0.2em] font-bold text-center">
-                    &copy; 2026 i-Connect Student Society. All Rights Reserved.
-                </p>
-            </div>
-
-        </div>
-    </footer>
+    <ic-footer></ic-footer>
 
 </body>
 

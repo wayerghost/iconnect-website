@@ -482,3 +482,90 @@ footer, .footer-glass {
 .social-icon-btn:hover svg {
     stroke: url(#about-gradient) !important;
 }
+
+/* Calendar-specific custom styles */
+.calendar-day-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    border: 1px solid transparent;
+}
+
+.calendar-day-btn:hover:not(.empty-day) {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(90, 190, 176, 0.3);
+    transform: translateY(-2px);
+}
+
+.calendar-day-btn.today {
+    border-color: rgba(117, 187, 240, 0.5);
+    background: rgba(117, 187, 240, 0.05);
+    font-weight: 700;
+}
+
+.calendar-day-btn.active-day {
+    background: linear-gradient(135deg, rgba(90, 190, 176, 0.25) 0%, rgba(27, 117, 188, 0.25) 100%) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 15px var(--accent-glow);
+    color: #fff !important;
+    font-weight: 700;
+}
+
+.calendar-day-btn.has-event::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.calendar-day-btn.has-event.event-seminar::after {
+    background-color: #75BBF0;
+    box-shadow: 0 0 8px #75BBF0;
+}
+
+.calendar-day-btn.has-event.event-workshop::after {
+    background-color: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.calendar-day-btn.has-event.event-competition::after {
+    background-color: #a855f7;
+    box-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
+}
+
+.calendar-day-btn.has-event.event-meeting::after {
+    background-color: #f8f9fa;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Calendar Month transition animation */
+@keyframes calendarFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.calendar-grid-animate {
+    animation: calendarFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Event Card Detail animation */
+.event-details-card {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Custom Element Display Rules */
+ic-header, ic-footer {
+    display: block;
+}

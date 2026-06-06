@@ -11,6 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="components.js?v=2" defer></script>
     <script src="script.js?v=6" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -28,78 +29,7 @@
     </div>
 
     <!-- Header / Navbar -->
-    <header class="navbar fixed top-0 w-full z-50 py-5 transition-all duration-500">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-            <!-- Brand -->
-            <div class="flex items-center gap-4 group cursor-pointer magnetic-item"
-                onclick="window.location.href='index.html'">
-                <div class="relative">
-                    <div
-                        class="absolute inset-0 bg-accent/20 blur-xl rounded-full group-hover:bg-accent/40 transition-all duration-700 animate-pulse-slow">
-                    </div>
-                    <img src="assets/iconnect_logo.png" alt="i-Connect Logo"
-                        class="h-10 w-auto relative z-10 transition-transform group-hover:scale-110 drop-shadow-[0_0_12px_rgba(0,242,254,0.6)]">
-                </div>
-                <span
-                    class="font-outfit font-black text-xl tracking-tighter uppercase hidden md:block group-hover:text-glow-accent transition-all duration-500">i-Connect
-                    Student Society</span>
-            </div>
-
-            <!-- Desktop Nav -->
-            <nav class="hidden lg:flex items-center gap-8 font-medium">
-                <a href="index.html#home" class="hover:text-accent transition-colors py-2 relative group">
-                    Home
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full shadow-glow-accent"></span>
-                </a>
-                <a href="index.html#who-we-are" class="hover:text-accent transition-colors py-2 relative group">
-                    About
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full shadow-glow-accent"></span>
-                </a>
-                <a href="events.html" class="hover:text-accent transition-colors py-2 relative group">
-                    Events
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full shadow-glow-accent"></span>
-                </a>
-                <a href="reports.html"
-                    class="ml-4 bg-gradient-to-r from-primary to-accent hover:shadow-glow-accent px-6 py-2.5 rounded-full font-bold text-sm transition-all hover:-translate-y-1 active:scale-95 shadow-lg relative z-10 before:absolute before:inset-0 before:bg-white/20 before:rounded-full before:-z-10 ring-2 ring-accent/50 shadow-glow-accent">
-                    View Reports
-                </a>
-            </nav>
-
-            <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu"
-                class="lg:hidden flex flex-col gap-1.5 cursor-pointer z-[60] p-2 hover:bg-white/5 rounded-lg transition-all">
-                <span class="bar w-7 h-0.5 bg-white rounded-full transition-all"></span>
-                <span class="bar w-5 h-0.5 bg-white rounded-full transition-all self-end"></span>
-                <span class="bar w-7 h-0.5 bg-white rounded-full transition-all"></span>
-            </button>
-        </div>
-
-        <!-- Mobile Nav Menu -->
-        <div id="mobile-nav"
-            class="fixed inset-0 bg-dark/98 backdrop-blur-3xl flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-500 lg:hidden z-50 overflow-hidden">
-            <!-- Decorative Glow spots -->
-            <div class="absolute -top-10 -left-10 w-72 h-72 bg-primary/20 blur-[120px] rounded-full pointer-events-none"></div>
-            <div class="absolute -bottom-10 -right-10 w-72 h-72 bg-accent/20 blur-[120px] rounded-full pointer-events-none"></div>
-            
-            <div class="flex flex-col items-center gap-6 z-10 w-full px-6 text-center">
-                <a href="index.html#home" class="mobile-link text-white/60 hover:text-white text-3xl font-bold tracking-wide transition-all duration-300 relative py-2 block">
-                    Home
-                </a>
-                <a href="index.html#who-we-are" class="mobile-link text-white/60 hover:text-white text-3xl font-bold tracking-wide transition-all duration-300 relative py-2 block">
-                    About
-                </a>
-                <a href="events.html" class="mobile-link text-white/60 hover:text-white text-3xl font-bold tracking-wide transition-all duration-300 relative py-2 block">
-                    Events
-                </a>
-                
-                <div class="w-16 h-px bg-white/10 my-4"></div>
-                
-                <a href="reports.html" class="mobile-link w-full max-w-xs text-center bg-gradient-to-r from-primary to-accent hover:shadow-glow-accent px-8 py-4 rounded-2xl font-black text-lg text-white transition-all shadow-lg active:scale-95 hover:brightness-110 ring-2 ring-accent/50 shadow-glow-accent">
-                    View Reports
-                </a>
-            </div>
-        </div>
-    </header>
+    <ic-header></ic-header>
 
     <main class="pt-40 pb-20 min-h-screen flex flex-col">
         <!-- Header Section -->
@@ -312,15 +242,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-dark py-20 border-t border-white/5 mt-auto">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="pt-8 flex flex-col md:flex-row justify-center items-center">
-                <p class="text-gray-600 text-[10px] uppercase tracking-[0.2em] font-bold text-center">
-                    &copy; 2026 i-Connect Student Society. All Rights Reserved.
-                </p>
-            </div>
-        </div>
-    </footer>
+    <ic-footer></ic-footer>
 
     <!-- Custom Script for Tabs & Supabase -->
     <script>

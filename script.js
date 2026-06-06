@@ -301,38 +301,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const track = document.getElementById('officers-track');
     const prevBtn = document.getElementById('prev-officer');
     const nextBtn = document.getElementById('next-officer');
-    
+
     if (track && prevBtn && nextBtn) {
         let currentIndex = 0;
         let autoplayInterval = null;
         const AUTOPLAY_DELAY = 3000; // 3 seconds
-        
+
         const getVisibleCount = () => {
             if (window.innerWidth >= 768) return 3;
             if (window.innerWidth >= 640) return 2;
             return 1;
         };
-        
+
         const updateCarousel = () => {
             const items = track.querySelectorAll('.carousel-item');
             const totalItems = items.length;
             const visibleCount = getVisibleCount();
             const maxIndex = Math.max(0, totalItems - visibleCount);
-            
+
             // Bounds check
             if (currentIndex > maxIndex) currentIndex = maxIndex;
             if (currentIndex < 0) currentIndex = 0;
-            
+
             // Calculate slide translation (item width + gap spacing)
             const gap = 24; // matches Tailwind gap-6 (1.5rem / 24px)
             const itemWidth = items[0].getBoundingClientRect().width;
             const offset = currentIndex * (itemWidth + gap);
             track.style.transform = `translateX(${-offset}px)`;
-            
+
             // Disable buttons if we reach boundaries
             prevBtn.style.opacity = currentIndex === 0 ? '0.3' : '1';
             prevBtn.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
-            
+
             nextBtn.style.opacity = currentIndex === maxIndex ? '0.3' : '1';
             nextBtn.style.pointerEvents = currentIndex === maxIndex ? 'none' : 'auto';
         };
@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const totalItems = items.length;
                 const visibleCount = getVisibleCount();
                 const maxIndex = Math.max(0, totalItems - visibleCount);
-                
+
                 if (maxIndex > 0) {
                     if (currentIndex >= maxIndex) {
                         currentIndex = 0;
@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 autoplayInterval = null;
             }
         };
-        
+
         prevBtn.addEventListener('click', () => {
             if (currentIndex > 0) {
                 currentIndex--;
@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 startAutoplay(); // Reset timer on manual action
             }
         });
-        
+
         nextBtn.addEventListener('click', () => {
             const visibleCount = getVisibleCount();
             const totalItems = track.querySelectorAll('.carousel-item').length;
@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
             container.addEventListener('touchstart', stopAutoplay, { passive: true });
             container.addEventListener('touchend', startAutoplay, { passive: true });
         }
-        
+
         // Initial setup and resize updates
         updateCarousel();
         startAutoplay();
