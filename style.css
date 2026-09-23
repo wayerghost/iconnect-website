@@ -166,13 +166,22 @@ body {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-/* Navbar Scroll Effect */
+/* Navbar Styling */
+.navbar {
+    background: rgba(5, 25, 35, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .navbar.scrolled {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    padding: 0.75rem 0;
+    background: rgba(3, 16, 23, 0.92) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(117, 187, 240, 0.2) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    padding: 0.65rem 0 !important;
 }
 
 /* Sparkle Animation */
@@ -531,7 +540,12 @@ footer,
 }
 
 /* Custom Element Display Rules */
-ic-header,
+ic-header {
+    display: block;
+    position: relative;
+    z-index: 99999;
+}
+
 ic-footer {
     display: block;
 }
@@ -609,6 +623,50 @@ ic-loader.fade-out {
     transform: translateX(6px);
     background: linear-gradient(to right, #75BBF0, #30D3D0);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 600;
+}
+
+/* Card Title Gradient Hover Effect */
+.card-title-gradient {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .card-title-gradient {
+    background: var(--hover-grad) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+}
+
+/* Strict Line Clamping Utilities */
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Strict Report Card Top Corner Clipping */
+.report-card {
+    overflow: hidden !important;
+    isolation: isolate;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    mask-image: -webkit-radial-gradient(white, black);
 }

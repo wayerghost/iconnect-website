@@ -17,23 +17,23 @@ class ICHeader extends HTMLElement {
         const homePrefix = isHome ? '' : 'index.html';
 
         // Check if navbar scrolled styling is already needed on page load (e.g. if page is refreshed down)
-        const isScrolled = window.scrollY > 50;
-        const headerClass = `navbar fixed top-0 w-full z-50 py-5 transition-all duration-500${isScrolled ? ' scrolled' : ''}`;
+        const isScrolled = window.scrollY > 30;
+        const headerClass = `navbar fixed top-0 w-full z-[99999] py-3.5 sm:py-5 transition-all duration-500${isScrolled ? ' scrolled' : ''}`;
 
         this.innerHTML = `
             <header class="${headerClass}">
-                <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex justify-between items-center">
                     <!-- Brand -->
-                    <a href="index.html" class="flex items-center gap-3 cursor-pointer">
-                        <div class="relative">
+                    <a href="index.html" class="flex items-center gap-2 sm:gap-3 cursor-pointer min-w-0">
+                        <div class="relative flex-shrink-0">
                             <img src="assets/ICSS-t.png" alt="i-Connect Logo"
-                                class="h-10 w-auto relative z-10 transition-transform drop-shadow-[0_0_12px_rgba(0,242,254,0.6)]">
+                                class="h-7 sm:h-9 md:h-10 w-auto relative z-10 transition-transform drop-shadow-[0_0_12px_rgba(0,242,254,0.6)]">
                         </div>
-                        <div class="hidden md:flex flex-col">
-                            <span class="font-poppins font-semibold text-sm tracking-wide uppercase text-[#82C3F8]">
+                        <div class="flex flex-col min-w-0">
+                            <span class="font-poppins font-bold text-[10px] sm:text-xs md:text-sm tracking-wide uppercase text-[#82C3F8] leading-tight truncate">
                                 I-CONNECT STUDENT SOCIETY
                             </span>
-                            <span class="font-poppins font-semibold text-xs tracking-wide uppercase text-white/90">
+                            <span class="font-poppins font-medium text-[8px] sm:text-[10px] md:text-xs tracking-wider uppercase text-white/80 leading-tight">
                                 URS BINANGONAN
                             </span>
                         </div>
@@ -59,47 +59,155 @@ class ICHeader extends HTMLElement {
                             class="nav-link ${isEvents ? 'active' : ''} text-white font-semibold py-2 relative transition-colors duration-300">
                             Events
                         </a>
+                        <a href="reports.html"
+                            class="nav-link ${isReports ? 'active' : ''} text-white font-semibold py-2 relative transition-colors duration-300">
+                            Reports
+                        </a>
                         <!-- Sliding Indicator Underline -->
                         <div class="nav-indicator-line"></div>
                     </nav>
 
-                    <a href="reports.html"
-                        class="nav-action-btn ${isReports ? 'ring-2 ring-accent/50 shadow-glow-accent border-white' : ''} hidden lg:flex items-center justify-center border-2 border-transparent px-6 py-2 transition-all duration-300 transform hover:scale-105 rounded-lg">
-                        <span class="bg-gradient-to-r from-[#75BBF0] to-[#4DA1E0] text-white bg-clip-text font-medium text-sm tracking-wide">
-                            View Reports
-                        </span>
-                    </a>
-
-                    <!-- Mobile Menu Toggle -->
-                    <button id="mobile-menu"
-                        class="lg:hidden flex flex-col gap-1.5 cursor-pointer z-[60] p-2 hover:bg-white/5 rounded-lg transition-all">
-                        <span class="bar w-7 h-0.5 bg-white rounded-full transition-all"></span>
-                        <span class="bar w-5 h-0.5 bg-white rounded-full transition-all self-end"></span>
-                        <span class="bar w-7 h-0.5 bg-white rounded-full transition-all"></span>
+                    <!-- Mobile Menu Toggle Button -->
+                    <button id="mobile-menu" aria-label="Toggle Navigation Menu"
+                        class="lg:hidden flex flex-col items-center justify-center gap-1.5 cursor-pointer z-[999999] w-9 h-9 sm:w-10 sm:h-10 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all active:scale-95 flex-shrink-0">
+                        <span class="bar w-5 h-0.5 bg-white rounded-full transition-all duration-300"></span>
+                        <span class="bar w-5 h-0.5 bg-white rounded-full transition-all duration-300"></span>
+                        <span class="bar w-5 h-0.5 bg-white rounded-full transition-all duration-300"></span>
                     </button>
                 </div>
 
-                <!-- Mobile Nav Menu -->
+                <!-- Mobile Nav Menu Drawer (Opaque Fullscreen Body Overlay) -->
                 <div id="mobile-nav"
-                    class="fixed inset-0 bg-[#051923]/98 backdrop-blur-3xl flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-500 lg:hidden z-50 overflow-hidden">
-                    <div class="flex flex-col items-center gap-6 z-10 w-full px-6 text-center">
+                    class="fixed inset-0 flex flex-col justify-between py-8 px-6 translate-x-full transition-transform duration-500 lg:hidden z-[9999999] overflow-y-auto"
+                    style="background-color: #051923 !important; background-image: radial-gradient(circle at 50% 20%, rgba(117,187,240,0.15) 0%, transparent 60%), radial-gradient(circle at 80% 80%, rgba(48,211,208,0.1) 0%, transparent 50%);">
+                    
+                    <!-- Drawer Header -->
+                    <div class="flex items-center justify-between border-b border-white/10 pb-4 pt-2 max-w-sm mx-auto w-full">
+                        <div class="flex items-center gap-3">
+                            <img src="assets/ICSS-t.png" alt="i-Connect Logo" class="h-8 w-auto">
+                            <div class="flex flex-col text-left">
+                                <span class="font-poppins font-bold text-xs tracking-wider uppercase text-[#82C3F8]">
+                                    I-CONNECT STUDENT SOCIETY
+                                </span>
+                                <span class="font-poppins font-medium text-[9px] tracking-wider uppercase text-white/60">
+                                    NAVIGATION MENU
+                                </span>
+                            </div>
+                        </div>
+                        <button id="mobile-drawer-close" aria-label="Close Navigation Menu"
+                            class="w-9 h-9 flex items-center justify-center text-white/80 hover:text-white bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl transition-all active:scale-95">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Drawer Links -->
+                    <div class="flex flex-col items-center gap-3 py-6 w-full max-w-sm mx-auto text-center my-auto">
                         <a href="${homePrefix}#home"
-                            class="mobile-link text-white hover:text-accent text-3xl font-bold transition-all duration-300">Home</a>
+                            class="mobile-link text-white hover:text-[#75BBF0] text-lg font-bold py-3 px-6 w-full rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all ${isHome ? 'bg-gradient-to-r from-[#75BBF0]/20 to-[#30D3D0]/20 border-[#75BBF0]/40 text-[#75BBF0] font-extrabold' : ''}">
+                            Home
+                        </a>
                         <a href="${homePrefix}#about"
-                            class="mobile-link text-white hover:text-accent text-3xl font-bold transition-all duration-300">About Us</a>
+                            class="mobile-link text-white hover:text-[#75BBF0] text-lg font-bold py-3 px-6 w-full rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all">
+                            About Us
+                        </a>
                         <a href="${homePrefix}#officers"
-                            class="mobile-link text-white hover:text-accent text-3xl font-bold transition-all duration-300">Officers</a>
+                            class="mobile-link text-white hover:text-[#75BBF0] text-lg font-bold py-3 px-6 w-full rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all">
+                            Officers
+                        </a>
                         <a href="${homePrefix}#faqs"
-                            class="mobile-link text-white hover:text-accent text-3xl font-bold transition-all duration-300">FAQs</a>
+                            class="mobile-link text-white hover:text-[#75BBF0] text-lg font-bold py-3 px-6 w-full rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all">
+                            FAQs
+                        </a>
                         <a href="events.html"
-                            class="mobile-link text-white hover:text-accent text-3xl font-bold transition-all duration-300">Events</a>
-                        <div class="w-16 h-px bg-white/10 my-4"></div>
+                            class="mobile-link text-white hover:text-[#75BBF0] text-lg font-bold py-3 px-6 w-full rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all ${isEvents ? 'bg-gradient-to-r from-[#75BBF0]/20 to-[#30D3D0]/20 border-[#75BBF0]/40 text-[#75BBF0] font-extrabold' : ''}">
+                            Events
+                        </a>
                         <a href="reports.html"
-                            class="mobile-link w-full max-w-xs text-center border border-white/20 text-white px-8 py-4 rounded-2xl font-black text-lg transition-all active:scale-95">View Reports</a>
+                            class="mobile-link text-white hover:text-[#75BBF0] text-lg font-bold py-3 px-6 w-full rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all ${isReports ? 'bg-gradient-to-r from-[#75BBF0]/20 to-[#30D3D0]/20 border-[#75BBF0]/40 text-[#75BBF0] font-extrabold' : ''}">
+                            Reports
+                        </a>
+                    </div>
+
+                    <!-- Drawer Footer -->
+                    <div class="w-full max-w-sm mx-auto pt-4 border-t border-white/10 flex flex-col items-center gap-1 text-center">
+                        <span class="text-[10px] text-gray-500 font-poppins uppercase tracking-wider">i-Connect Student Society</span>
                     </div>
                 </div>
             </header>
         `;
+
+        // Attach direct mobile menu event listeners inside component & relocate drawer to body root
+        setTimeout(() => {
+            const headerEl = this.querySelector('header');
+            const mobileMenuBtn = this.querySelector('#mobile-menu');
+            let mobileNav = this.querySelector('#mobile-nav');
+
+            if (mobileNav && mobileNav.parentElement !== document.body) {
+                document.body.appendChild(mobileNav);
+            }
+
+            mobileNav = document.getElementById('mobile-nav');
+            const drawerCloseBtn = document.getElementById('mobile-drawer-close');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            const handleScroll = () => {
+                if (headerEl) {
+                    if (window.scrollY > 20) {
+                        headerEl.classList.add('scrolled');
+                    } else {
+                        headerEl.classList.remove('scrolled');
+                    }
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+
+            const closeMenu = () => {
+                if (mobileMenuBtn) mobileMenuBtn.classList.remove('is-active');
+                if (mobileNav) {
+                    mobileNav.classList.remove('translate-x-0');
+                    mobileNav.classList.add('translate-x-full');
+                }
+                document.body.classList.remove('overflow-hidden');
+            };
+
+            const openMenu = () => {
+                if (mobileMenuBtn) mobileMenuBtn.classList.add('is-active');
+                if (mobileNav) {
+                    mobileNav.classList.add('translate-x-0');
+                    mobileNav.classList.remove('translate-x-full');
+                }
+                document.body.classList.add('overflow-hidden');
+            };
+
+            if (mobileMenuBtn && mobileNav) {
+                mobileMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isOpen = mobileNav.classList.contains('translate-x-0');
+                    if (isOpen) {
+                        closeMenu();
+                    } else {
+                        openMenu();
+                    }
+                });
+            }
+
+            if (drawerCloseBtn) {
+                drawerCloseBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    closeMenu();
+                });
+            }
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    closeMenu();
+                });
+            });
+        }, 0);
     }
 }
 

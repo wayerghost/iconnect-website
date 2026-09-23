@@ -221,28 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         highlightNavigation(true);
     });
 
-    // Mobile menu logic
-    const mobileMenuBtn = document.querySelector('#mobile-menu');
-    const mobileNav = document.querySelector('#mobile-nav');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
-
-    if (mobileMenuBtn && mobileNav) {
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenuBtn.classList.toggle('is-active');
-            mobileNav.classList.toggle('translate-x-full');
-            mobileNav.classList.toggle('translate-x-0');
-            document.body.classList.toggle('overflow-hidden');
-        });
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenuBtn.classList.remove('is-active');
-                mobileNav.classList.add('translate-x-full');
-                mobileNav.classList.remove('translate-x-0');
-                document.body.classList.remove('overflow-hidden');
-            });
-        });
-    }
+    // Mobile menu logic is handled cleanly inside ICHeader custom element (components.js)
 
     // Tabs functionality
     const tabBtns = document.querySelectorAll('.tab-btn');
@@ -392,13 +371,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Pause autoplay when hovering over the carousel
+        // Touch Swipe Gesture Support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
         const container = track.closest('.relative');
         if (container) {
             container.addEventListener('mouseenter', stopAutoplay);
             container.addEventListener('mouseleave', startAutoplay);
-            container.addEventListener('touchstart', stopAutoplay, { passive: true });
-            container.addEventListener('touchend', startAutoplay, { passive: true });
+            container.addEventListener('touchstart', (e) => {
+                stopAutoplay();
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            container.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diffX = touchStartX - touchEndX;
+                if (Math.abs(diffX) > 40) {
+                    const visibleCount = getVisibleCount();
+                    const totalItems = track.querySelectorAll('.carousel-item').length;
+                    const maxIndex = Math.max(0, totalItems - visibleCount);
+                    if (diffX > 0 && currentIndex < maxIndex) {
+                        currentIndex++;
+                        updateCarousel();
+                    } else if (diffX < 0 && currentIndex > 0) {
+                        currentIndex--;
+                        updateCarousel();
+                    }
+                }
+                startAutoplay();
+            }, { passive: true });
         }
 
         // Initial setup and resize updates
